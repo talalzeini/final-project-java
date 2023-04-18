@@ -15,3 +15,8 @@ Fill it with 0s
 Generate a random number of 1-9 implicit
 Check if that number can be added to grid in the location of the nested for loop
 Add a number 1-9 (implicit) to the location if it can be added
+
+Static list of 1-9, shuffle it with Collection.shuffle or whatever
+Put it in row 0 then iterate to another shuffled row
+    check if row, col, and sqaure are valid
+
