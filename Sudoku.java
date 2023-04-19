@@ -17,7 +17,33 @@ public class Sudoku
         }
     }
 
+    public boolean checkRow(int input, int col)
+    {
+        for(int row = 0; row < GRID_SIZE; row++)
+        {
+            if(sourceBoard[row][col] == input)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkCol(int input, int row)
+    {
+        for(int col = 0; col < GRID_SIZE; col++)
+        {
+            if(sourceBoard[row][col] == input)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     
+
+
 
 
 
