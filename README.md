@@ -20,3 +20,5 @@ Static list of 1-9, shuffle it with Collection.shuffle or whatever
 Put it in row 0 then iterate to another shuffled row
     check if row, col, and sqaure are valid
 
+
+Use Hashmap to solve the sudoku 
