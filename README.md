@@ -23,3 +23,8 @@ Put it in row 0 then iterate to another shuffled row
 research of algoirithms
 https://garethrees.org/2007/06/10/zendoku-generation/#section-4
 
+
+Diffculty Levels (Filled in Starting Boxes)
+Hard   = 21
+Medium = 35
+Easy   = 69
