@@ -4,11 +4,17 @@ import java.util.List;
 public class Sudoku
 {
 
+    public static void main(String[] args) 
+    {
+     initializeBoard();   
+    }
+
+
     final static int GRID_SIZE = 9;
-    private int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE];
+    private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE];
 
 
-    public void initializeBoard()
+    public static void initializeBoard()
     {
         // Fill the board with zeros
         for (int i = 0; i < 9; i++) 
@@ -23,6 +29,14 @@ public class Sudoku
         Integer[] numbers = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9}; // ex. 1 2 3 4 5 6 7 8 9
         List<Integer> list = Arrays.asList(numbers);
         Collections.shuffle(list); // ex. 4 2 1 3 8 9 5 6 7 
+
+        //Insert first row of Sudoku using shuffle of 1-9 
+        for(int i = 0; i < GRID_SIZE; i++)
+        {
+            sourceBoard[0][i] = list.get(i);
+            //System.out.println(sourceBoard[0][i]); Testing Purposes
+        }
+
         
 
     }
