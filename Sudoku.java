@@ -18,10 +18,11 @@ public class Sudoku
                 sourceBoard[i][j] = 0;
             }
         }
+
         // Want to generate the first row using a random list of 1-9 to increase efficency of the rest of the soduku alogrithm
-        Integer[] numbers = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        Integer[] numbers = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9}; // ex. 1 2 3 4 5 6 7 8 9
         List<Integer> list = Arrays.asList(numbers);
-        Collections.shuffle(list);
+        Collections.shuffle(list); // ex. 4 2 1 3 8 9 5 6 7 
         
 
     }
