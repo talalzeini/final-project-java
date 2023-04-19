@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
 public class Sudoku
 {
 
@@ -15,6 +18,12 @@ public class Sudoku
                 sourceBoard[i][j] = 0;
             }
         }
+        // Want to generate the first row using a random list of 1-9 to increase efficency of the rest of the soduku alogrithm
+        Integer[] numbers = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        List<Integer> list = Arrays.asList(numbers);
+        Collections.shuffle(list);
+        
+
     }
 
     public boolean checkRow(int input, int col)
