@@ -4,15 +4,14 @@ import java.util.List;
 public class Sudoku
 {
 
+    final static int GRID_SIZE = 9;
+    private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE];
+
+
     public static void main(String[] args) 
     {
      initializeBoard();   
     }
-
-
-    final static int GRID_SIZE = 9;
-    private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE];
-
 
     public static void initializeBoard()
     {
@@ -25,7 +24,7 @@ public class Sudoku
             }
         }
 
-        // Want to generate the first row using a random list of 1-9 to increase efficency of the rest of the soduku alogrithm
+        // Want to generate the first row using a random list of 1-9 to increase efficency of the rest of the soduku generation alogrithm
         Integer[] numbers = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9}; // ex. 1 2 3 4 5 6 7 8 9
         List<Integer> list = Arrays.asList(numbers);
         Collections.shuffle(list); // ex. 4 2 1 3 8 9 5 6 7 
@@ -37,8 +36,13 @@ public class Sudoku
             //System.out.println(sourceBoard[0][i]); Testing Purposes
         }
 
-        
+    }
 
+    //backtracking method to generate rest of sudoku board
+    public static boolean generateBoard()
+    {
+       
+        return true; //temp
     }
 
     public boolean checkRow(int input, int col)
@@ -65,13 +69,12 @@ public class Sudoku
         return true;
     }
 
-    
-
-
-
-
-
-
+    // Find the starting Position of the top left corner of each sub grid
+    // Figure out how to do that
+    public boolean checkGrid(int input, int row, int col)
+    {
+        return true;//temp
+    }
 
 
 
