@@ -41,7 +41,7 @@ public class Sudoku
     //backtracking method to generate rest of sudoku board
     public static boolean generateBoard()
     {
-       
+        
         return true; //temp
     }
 
@@ -73,7 +73,21 @@ public class Sudoku
     // Figure out how to do that
     public boolean checkGrid(int input, int row, int col)
     {
-        return true;//temp
+        int startingRow = row - row % 3; // ex. r = 1
+        int startingColumn = col - col % 3; // ex. c = 1
+
+        for(int i = startingRow; i < startingRow + 3; i++)
+        {
+            for(int j = startingColumn; j < startingColumn + 3; j++)
+            {
+                if(sourceBoard[i][j] == input)
+                {
+                    return true;
+                }
+            }
+       
+         }
+         return false;
     }
 
 
