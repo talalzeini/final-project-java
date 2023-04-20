@@ -82,12 +82,12 @@ public class Sudoku
             {
                 if(sourceBoard[i][j] == input)
                 {
-                    return true;
+                    return false;
                 }
             }
        
          }
-         return false;
+         return true;
     }
 
 
