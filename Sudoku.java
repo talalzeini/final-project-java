@@ -45,6 +45,15 @@ public class Sudoku
         return true; //temp
     }
 
+    public boolean isValid(int input, int row, int col)
+    {
+        if(checkGrid(input, row, col) && checkCol(input, row) && checkRow(input, col))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public boolean checkRow(int input, int col)
     {
         for(int row = 0; row < GRID_SIZE; row++)
