@@ -12,6 +12,7 @@ public class Sudoku
     public static void main(String[] args)
     {
         initializeBoard();
+        generateBoard(0);
         printBoard();
     }
 
@@ -36,7 +37,6 @@ public class Sudoku
         for(int i = 0; i < GRID_SIZE; i++)
         {
             sourceBoard[0][i] = list.get(i);
-            //System.out.println(sourceBoard[0][i]); Testing Purposes
         }
 
     }
@@ -67,25 +67,40 @@ public class Sudoku
     }
 
     // Generate the rest of the board using backtracking method
-    public static boolean generateBoard(int numberOfCells)
+    // Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
+    // The integer named 'currentCell' should start with a 0 value
+    public static boolean generateBoard(int currentCell)
     {
-        int row = numberOfCells / 9; // row index of the current cell that we want to fill with a number
-        int column = numberOfCells % 9; // column index of the current cell that we want to fill with a number
+        int row = currentCell / 9; // row index of the current cell that we want to fill with a number
+        int column = currentCell % 9; // column index of the current cell that we want to fill with a number
 
-        if(numberOfCells == 81){ // Board is completely filled, all 81 cells have a value
+        // Board is completely filled, all 81 cells have a value
+        // Considering recursion is used, we wait until all cells have been filled
+        // Base Case
+        if(currentCell == GRID_SIZE * GRID_SIZE){
             return true;
         }
 
-        // TO-DO:
-        //      - Check if cell is already filled with a number
-        //      - Move to the next the cell
-        //      - Check if its valid
-        //      - Backtrack
+        // Check if cell is already filled
+        // If it is, jump to the next cell
+        if(sourceBoard[row][column] != 0){
+            return generateBoard(currentCell + 1);
+        }
 
-        return true;
+        for (int i = 1; i <= GRID_SIZE; i++) {
+            // Check for validity
+            if (isValid(i, row, column)) { // Validate whether the cell can be filled with the value
+                sourceBoard[row][column] = i; // Fill the cell with the value
+                if (generateBoard(currentCell + 1)) { // Recursively call the function to fill the next cells
+                    return true; // Retrun true was board is completely filled
+                }
+                sourceBoard[row][column] = 0; // Backtrack by clearing the currentCell cell
+            }
+        }
+        return false;
     }
 
-    public boolean isValid(int input, int row, int col)
+    public static boolean isValid(int input, int row, int col)
     {
         if(checkGrid(input, row, col) && checkCol(input, row) && checkRow(input, col))
         {
@@ -94,7 +109,7 @@ public class Sudoku
         return false;
     }
 
-    public boolean checkRow(int input, int col)
+    public static boolean checkRow(int input, int col)
     {
         for(int row = 0; row < GRID_SIZE; row++)
         {
@@ -106,7 +121,7 @@ public class Sudoku
         return true;
     }
 
-    public boolean checkCol(int input, int row)
+    public static boolean checkCol(int input, int row)
     {
         for(int col = 0; col < GRID_SIZE; col++)
         {
@@ -120,7 +135,7 @@ public class Sudoku
 
     // Find the starting Position of the top left corner of each sub grid
     // Figure out how to do that
-    public boolean checkGrid(int input, int row, int col)
+    public static boolean checkGrid(int input, int row, int col)
     {
         int startingRow = row - row % 3; // ex. r = 1
         int startingColumn = col - col % 3; // ex. c = 1
