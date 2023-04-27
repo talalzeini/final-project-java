@@ -7,12 +7,18 @@ public class Sudoku
     final static int GRID_SIZE = 9; // size of sudoku grid 9x9
     private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the board
 
-    final static int CELLS_TO_REMOVE = 40; // number of empty cells out of 81 at the start of the game
 
     public static void main(String[] args)
     {
         initializeBoard();
         generateBoard(0);
+
+        System.out.println("\nSolved Board");
+        printBoard();
+
+        removeNumbers(60); // 81 - 21 = 60 (considered hard)
+
+        System.out.println("\nUnsolved Board");
         printBoard();
     }
 
@@ -40,6 +46,19 @@ public class Sudoku
         }
 
     }
+
+    public static void removeNumbers(int cellsToRemove) {
+        while (cellsToRemove > 0) {
+            // Randomly pick a row and column index
+            int row = (int)(Math.random() * GRID_SIZE);
+            int column = (int)(Math.random() * GRID_SIZE);
+            if (sourceBoard[row][column] != 0) {
+                sourceBoard[row][column] = 0;
+                cellsToRemove--; // Keep track of how many cells are being removed
+            }
+        }
+    }
+
 
     // Print the board, will be replaced by GUI
     public static void printBoard() {
