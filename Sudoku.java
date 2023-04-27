@@ -7,6 +7,7 @@ public class Sudoku
     final static int GRID_SIZE = 9; // size of sudoku grid 9x9
     private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the board
 
+    final static int CELLS_TO_REMOVE = 40; // number of empty cells out of 81 at the start of the game
 
     public static void main(String[] args)
     {
@@ -49,7 +50,7 @@ public class Sudoku
             // Print each column of the board
             for (int column = 0; column < GRID_SIZE; column++) {
                 int value = sourceBoard[row][column];
-                if (value == 0) { // Print the cell value as an empty space if it's not zero
+                if (value == 0) { // Print the cell value as an empty space if it's zero
                     System.out.print("  ");
                 } else { // Print the cell value if it's not zero
                     System.out.print(value + " ");
@@ -66,10 +67,22 @@ public class Sudoku
     }
 
     // Generate the rest of the board using backtracking method
-    public static boolean generateBoard()
+    public static boolean generateBoard(int numberOfCells)
     {
+        int row = numberOfCells / 9; // row index of the current cell that we want to fill with a number
+        int column = numberOfCells % 9; // column index of the current cell that we want to fill with a number
 
-        return true; //temp
+        if(numberOfCells == 81){ // Board is completely filled, all 81 cells have a value
+            return true;
+        }
+
+        // TO-DO:
+        //      - Check if cell is already filled with a number
+        //      - Move to the next the cell
+        //      - Check if its valid
+        //      - Backtrack
+
+        return true;
     }
 
     public boolean isValid(int input, int row, int col)
