@@ -4,21 +4,23 @@ import java.util.List;
 public class Sudoku
 {
 
-    final static int GRID_SIZE = 9;
-    private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE];
+    final static int GRID_SIZE = 9; // size of sudoku grid 9x9
+    private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the board
 
 
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
-        initializeBoard();   
+        initializeBoard();
+        printBoard();
     }
 
+    // Initializes the board with all cells set to zero
     public static void initializeBoard()
     {
         // Fill the board with zeros
-        for (int i = 0; i < 9; i++) 
+        for (int i = 0; i < 9; i++)
         {
-            for (int j = 0; j < 9; j++) 
+            for (int j = 0; j < 9; j++)
             {
                 sourceBoard[i][j] = 0;
             }
@@ -27,9 +29,9 @@ public class Sudoku
         // Want to generate the first row using a random list of 1-9 to increase efficency of the rest of the soduku generation alogrithm
         Integer[] numbers = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9}; // ex. 1 2 3 4 5 6 7 8 9
         List<Integer> list = Arrays.asList(numbers);
-        Collections.shuffle(list); // ex. 4 2 1 3 8 9 5 6 7 
+        Collections.shuffle(list); // ex. 4 2 1 3 8 9 5 6 7
 
-        //Insert first row of Sudoku using shuffle of 1-9 
+        // Insert first row of Sudoku using shuffle of 1-9
         for(int i = 0; i < GRID_SIZE; i++)
         {
             sourceBoard[0][i] = list.get(i);
@@ -38,10 +40,35 @@ public class Sudoku
 
     }
 
-    //backtracking method to generate rest of sudoku board
+    // Print the board, will be replaced by GUI
+    public static void printBoard() {
+        System.out.println("+-------+-------+-------+"); // Top border of the board
+        // Print each row of the board
+        for (int row = 0; row < GRID_SIZE; row++) {
+            System.out.print("| ");
+            // Print each column of the board
+            for (int column = 0; column < GRID_SIZE; column++) {
+                int value = sourceBoard[row][column];
+                if (value == 0) { // Print the cell value as an empty space if it's not zero
+                    System.out.print("  ");
+                } else { // Print the cell value if it's not zero
+                    System.out.print(value + " ");
+                }
+                if (column % 3 == 2) {
+                    System.out.print("| ");
+                }
+            }
+            System.out.println("");
+            if (row % 3 == 2) {
+                System.out.println("+-------+-------+-------+");  // Bottom border of the board
+            }
+        }
+    }
+
+    // Generate the rest of the board using backtracking method
     public static boolean generateBoard()
     {
-        
+
         return true; //temp
     }
 
@@ -94,9 +121,9 @@ public class Sudoku
                     return false;
                 }
             }
-       
-         }
-         return true;
+
+        }
+        return true;
     }
 
 
