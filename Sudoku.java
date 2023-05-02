@@ -52,11 +52,33 @@ public class Sudoku
             // Randomly pick a row and column index
             int row = (int)(Math.random() * GRID_SIZE);
             int column = (int)(Math.random() * GRID_SIZE);
-            if (sourceBoard[row][column] != 0) {
+
+            int removedCell;
+            if (sourceBoard[row][column] != 0) //if cell is not empty
+            {
+                removedCell = sourceBoard[row][column];
                 sourceBoard[row][column] = 0;
                 cellsToRemove--; // Keep track of how many cells are being removed
             }
+
+            if(oneSolution() == false)
+            {
+                sourceBoard[row][column] = removedCell; // Put back wrong RNG choice
+                cellsToRemove++;
+            }
         }
+    }
+
+    public static boolean oneSolution()
+    {
+        int numOfSolutions = 0;
+
+        generateBoard(0);
+
+        
+
+
+        return false;
     }
 
 
