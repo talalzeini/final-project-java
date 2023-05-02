@@ -8,6 +8,8 @@ public class SudokuUI implements EventListener
 {
     
     private int[][] gameBoard;
+    private String title;
+    GraphicsConfiguration gc;
 
 
     //Constructor
@@ -16,6 +18,26 @@ public class SudokuUI implements EventListener
         this.gameBoard = gameBoard;
     }
 
+
+    public JFrame(String title, GraphicsConfiguration gc)
+    {
+        this.title = title;
+        this.gc = gc;
+    }
     
 
+
+    public static void main(String[] args) {
+        
+        Frame frame = new JFrame("Sudoku", null);
+
+        frame.setVisible(true);
+
+        frame.setSize(170, 90);
+
+
+        //add(component)
+        //add(component)
+
+    }
 }
