@@ -5,18 +5,22 @@ public class Sudoku
 {
 
     final static int GRID_SIZE = 9; // size of sudoku grid 9x9
-    private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the board
+    private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the finished board
+    private static int[][] gameBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the partial board
 
 
     public static void main(String[] args)
     {
+        
         initializeBoard();
         generateBoard(0);
 
         System.out.println("\nSolved Board");
         printBoard();
 
-        removeNumbers(60); // 81 - 21 = 60 (considered hard)
+        gameBoard = sourceBoard;
+
+        gameBoard = removeNumbers(60); // 81 - 21 = 60 (considered hard)
 
         System.out.println("\nUnsolved Board");
         printBoard();
@@ -47,40 +51,32 @@ public class Sudoku
 
     }
 
-    public static void removeNumbers(int cellsToRemove) {
-        while (cellsToRemove > 0) {
+    public static void removeNumbers(int cellsToRemove) 
+    {
+        while (cellsToRemove > 0) 
+        {
             // Randomly pick a row and column index
             int row = (int)(Math.random() * GRID_SIZE);
             int column = (int)(Math.random() * GRID_SIZE);
 
             int removedCell;
-            if (sourceBoard[row][column] != 0) //if cell is not empty
+            if (gameBoard[row][column] != 0) //if cell is not empty
             {
-                removedCell = sourceBoard[row][column];
-                sourceBoard[row][column] = 0;
+                removedCell = gameBoard[row][column];
+                gameBoard[row][column] = 0;
                 cellsToRemove--; // Keep track of how many cells are being removed
             }
 
-            if(oneSolution() == false)
+            if(oneSolution(gameBoard) == false)
             {
-                sourceBoard[row][column] = removedCell; // Put back wrong RNG choice
+                gameBoard[row][column] = removedCell; // Put back wrong RNG choice
                 cellsToRemove++;
             }
         }
+       
     }
 
-    public static boolean oneSolution()
-    {
-        int numOfSolutions = 0;
-
-        generateBoard(0);
-
-        
-
-
-        return false;
-    }
-
+ 
 
     // Print the board, will be replaced by GUI
     public static void printBoard() {
@@ -106,6 +102,14 @@ public class Sudoku
             }
         }
     }
+    public static boolean oneSolution(int[][] checkBoard)
+    {
+        int numOfSolutions = 0;
+
+        generateBoard(0);
+
+        return false;
+    }
 
     // Generate the rest of the board using backtracking method
     // Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
@@ -130,9 +134,12 @@ public class Sudoku
 
         for (int i = 1; i <= GRID_SIZE; i++) {
             // Check for validity
-            if (isValid(i, row, column)) { // Validate whether the cell can be filled with the value
+            if (isValid(i, row, column)) 
+            { // Validate whether the cell can be filled with the value
                 sourceBoard[row][column] = i; // Fill the cell with the value
-                if (generateBoard(currentCell + 1)) { // Recursively call the function to fill the next cells
+
+                if (generateBoard(currentCell + 1)) 
+                { // Recursively call the function to fill the next cells
                     return true; // Retrun true was board is completely filled
                 }
                 sourceBoard[row][column] = 0; // Backtrack by clearing the currentCell cell
