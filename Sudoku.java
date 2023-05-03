@@ -7,6 +7,16 @@ public class Sudoku
     final static int GRID_SIZE = 9; // size of sudoku grid 9x9
     private static int[][] sourceBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the finished board
     private static int[][] gameBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the partial board
+    private static int[][] tempBoard = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the partial board
+
+    //setter
+    public static void setGameBoard(int[][] gameBoard) {
+        Sudoku.gameBoard = gameBoard;
+    }
+
+    public static void setTempBoard(int[][] tempBoard) {
+        Sudoku.tempBoard = tempBoard;
+    }
 
 
     public static void main(String[] args)
@@ -18,12 +28,12 @@ public class Sudoku
         System.out.println("\nSolved Board");
         printBoard();
 
-        gameBoard = sourceBoard;
+        setGameBoard(sourceBoard);
 
-        gameBoard = removeNumbers(60); // 81 - 21 = 60 (considered hard)
+        removeNumbers(20); // 81 - 21 = 60 (considered hard)
 
         System.out.println("\nUnsolved Board");
-        printBoard();
+        printBoardTWO();
     }
 
     // Initializes the board with all cells set to zero
@@ -56,27 +66,62 @@ public class Sudoku
         while (cellsToRemove > 0) 
         {
             // Randomly pick a row and column index
+            int cellNumber;
             int row = (int)(Math.random() * GRID_SIZE);
             int column = (int)(Math.random() * GRID_SIZE);
+            if(row == 0)
+            {
+                 cellNumber = (row) * 9 + column;
+            }
+            else
+            {
+                 cellNumber = (row - 1) * 9 + column;
+            }
 
-            int removedCell;
-            if (gameBoard[row][column] != 0) //if cell is not empty
+            int removedCell = 0;
+            if(gameBoard[row][column] != 0) //if cell is not empty
             {
                 removedCell = gameBoard[row][column];
                 gameBoard[row][column] = 0;
                 cellsToRemove--; // Keep track of how many cells are being removed
             }
+ 
 
-            if(oneSolution(gameBoard) == false)
+            if(oneSolution(cellNumber) == false)
             {
+                System.out.println("How many times this occur?");
                 gameBoard[row][column] = removedCell; // Put back wrong RNG choice
                 cellsToRemove++;
             }
+
         }
-       
+        System.out.println("Should print partial board but it doesnt");
+        printBoardTWO();
     }
 
- 
+    public static boolean oneSolution(int cellNumber)
+    {
+        setTempBoard(gameBoard);
+
+        generateBoardTWO(cellNumber);
+
+        if(areArraysIdentical(gameBoard, sourceBoard))
+        //if(Arrays.equals(gameBoard, sourceBoard))
+        {
+            setGameBoard(tempBoard);
+            return true;
+        }
+        else
+        {
+            setGameBoard(tempBoard);
+            System.out.println("How many times are they not identical this occur?");
+            return false;
+        }
+
+        
+    }
+
+
 
     // Print the board, will be replaced by GUI
     public static void printBoard() {
@@ -102,15 +147,32 @@ public class Sudoku
             }
         }
     }
-    public static boolean oneSolution(int[][] checkBoard)
-    {
-        int numOfSolutions = 0;
 
-        generateBoard(0);
-
-        return false;
+    // Print the board, will be replaced by GUI
+    public static void printBoardTWO() {
+        System.out.println("+-------+-------+-------+"); // Top border of the board
+        // Print each row of the board
+        for (int row = 0; row < GRID_SIZE; row++) {
+            System.out.print("| ");
+            // Print each column of the board
+            for (int column = 0; column < GRID_SIZE; column++) {
+                int value = gameBoard[row][column];
+                if (value == 0) { // Print the cell value as an empty space if it's zero
+                    System.out.print("  ");
+                } else { // Print the cell value if it's not zero
+                    System.out.print(value + " ");
+                }
+                if (column % 3 == 2) {
+                    System.out.print("| ");
+                }
+            }
+            System.out.println("");
+            if (row % 3 == 2) {
+                System.out.println("+-------+-------+-------+");  // Bottom border of the board
+            }
+        }
     }
-
+ 
     // Generate the rest of the board using backtracking method
     // Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
     // The integer named 'currentCell' should start with a 0 value
@@ -143,6 +205,45 @@ public class Sudoku
                     return true; // Retrun true was board is completely filled
                 }
                 sourceBoard[row][column] = 0; // Backtrack by clearing the currentCell cell
+            }
+        }
+        return false;
+    }
+
+
+
+    // Generate the rest of the board using backtracking method
+    // Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
+    // The integer named 'currentCell' should start with a 0 value
+    public static boolean generateBoardTWO(int currentCell)
+    {
+        int row = currentCell / 9; // row index of the current cell that we want to fill with a number
+        int column = currentCell % 9; // column index of the current cell that we want to fill with a number
+
+        // Board is completely filled, all 81 cells have a value
+        // Considering recursion is used, we wait until all cells have been filled
+        // Base Case
+        if(currentCell == GRID_SIZE * GRID_SIZE){
+            return true;
+        }
+
+        // Check if cell is already filled
+        // If it is, jump to the next cell
+        if(gameBoard[row][column] != 0){
+            return generateBoardTWO(currentCell + 1);
+        }
+
+        for (int i = 1; i <= GRID_SIZE; i++) {
+            // Check for validity
+            if (isValid(i, row, column)) 
+            { // Validate whether the cell can be filled with the value
+                gameBoard[row][column] = i; // Fill the cell with the value
+
+                if (generateBoardTWO(currentCell + 1)) 
+                { // Recursively call the function to fill the next cells
+                    return true; // Retrun true was board is completely filled
+                }
+                gameBoard[row][column] = 0; // Backtrack by clearing the currentCell cell
             }
         }
         return false;
@@ -203,5 +304,24 @@ public class Sudoku
     }
 
 
+
+    public static boolean areArraysIdentical(int[][] arr1, int[][] arr2) {
+        if (arr1.length != arr2.length || arr1[0].length != arr2[0].length) {
+            // If the arrays have different dimensions, they are not identical
+            return false;
+        }
+    
+        for (int i = 0; i < arr1.length; i++) {
+            for (int j = 0; j < arr1[0].length; j++) {
+                if (arr1[i][j] != arr2[i][j]) {
+                    // If any corresponding elements differ, the arrays are not identical
+                    return false;
+                }
+            }
+        }
+    
+        // If we get to this point, the arrays are identical
+        return true;
+    }
 
 }
