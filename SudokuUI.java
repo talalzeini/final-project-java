@@ -16,24 +16,17 @@ public class SudokuUI implements EventListener
     public SudokuUI(int[][] gameBoard)
     {
         this.gameBoard = gameBoard;
-    }
-
-
-    public JFrame(String title, GraphicsConfiguration gc)
-    {
-        this.title = title;
-        this.gc = gc;
-    }
-    
+    }    
 
 
     public static void main(String[] args) {
         
-        Frame frame = new JFrame("Sudoku", null);
-
+        JFrame frame = new JFrame("Sudoku");
+        frame.setSize(1100, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
-        frame.setSize(170, 90);
+       
+        JPanel p = new JPanel(new BorderLayout()); //PREFERRED!
 
 
         //add(component)

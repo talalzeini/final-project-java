@@ -30,7 +30,7 @@ public class Sudoku
 
         setGameBoard(sourceBoard);
 
-        removeNumbers(20); // 81 - 21 = 60 (considered hard)
+        removeNumbers(63); // 81 - 21 = 60 (considered hard)
 
         System.out.println("\nUnsolved Board");
         printBoardTWO();
@@ -66,17 +66,10 @@ public class Sudoku
         while (cellsToRemove > 0) 
         {
             // Randomly pick a row and column index
-            int cellNumber;
             int row = (int)(Math.random() * GRID_SIZE);
             int column = (int)(Math.random() * GRID_SIZE);
-            if(row == 0)
-            {
-                 cellNumber = (row) * 9 + column;
-            }
-            else
-            {
-                 cellNumber = (row - 1) * 9 + column;
-            }
+            int cellNumber = (row - 1) * 9 + (column-1);
+
 
             int removedCell = 0;
             if(gameBoard[row][column] != 0) //if cell is not empty
@@ -84,6 +77,7 @@ public class Sudoku
                 removedCell = gameBoard[row][column];
                 gameBoard[row][column] = 0;
                 cellsToRemove--; // Keep track of how many cells are being removed
+
             }
  
 
@@ -95,25 +89,24 @@ public class Sudoku
             }
 
         }
-        System.out.println("Should print partial board but it doesnt");
-        printBoardTWO();
     }
 
     public static boolean oneSolution(int cellNumber)
     {
-        setTempBoard(gameBoard);
+        copy2DArray(gameBoard, tempBoard);
 
-        generateBoardTWO(cellNumber);
+        generateBoardTWO(0);
 
-        if(areArraysIdentical(gameBoard, sourceBoard))
-        //if(Arrays.equals(gameBoard, sourceBoard))
+    
+        if(Arrays.equals(gameBoard, sourceBoard))
         {
-            setGameBoard(tempBoard);
+            copy2DArray(tempBoard, gameBoard);
+        
             return true;
         }
         else
         {
-            setGameBoard(tempBoard);
+            copy2DArray(tempBoard, gameBoard);
             System.out.println("How many times are they not identical this occur?");
             return false;
         }
@@ -173,6 +166,31 @@ public class Sudoku
         }
     }
  
+
+    // Print the board, will be replaced by GUI
+    public static void printBoardTEMP() {
+        System.out.println("+-------+-------+-------+"); // Top border of the board
+        // Print each row of the board
+        for (int row = 0; row < GRID_SIZE; row++) {
+            System.out.print("| ");
+            // Print each column of the board
+            for (int column = 0; column < GRID_SIZE; column++) {
+                int value = tempBoard[row][column];
+                if (value == 0) { // Print the cell value as an empty space if it's zero
+                    System.out.print("  ");
+                } else { // Print the cell value if it's not zero
+                    System.out.print(value + " ");
+                }
+                if (column % 3 == 2) {
+                    System.out.print("| ");
+                }
+            }
+            System.out.println("");
+            if (row % 3 == 2) {
+                System.out.println("+-------+-------+-------+");  // Bottom border of the board
+            }
+        }
+    }
     // Generate the rest of the board using backtracking method
     // Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
     // The integer named 'currentCell' should start with a 0 value
@@ -303,25 +321,19 @@ public class Sudoku
         return true;
     }
 
-
-
-    public static boolean areArraysIdentical(int[][] arr1, int[][] arr2) {
-        if (arr1.length != arr2.length || arr1[0].length != arr2[0].length) {
-            // If the arrays have different dimensions, they are not identical
-            return false;
-        }
-    
-        for (int i = 0; i < arr1.length; i++) {
-            for (int j = 0; j < arr1[0].length; j++) {
-                if (arr1[i][j] != arr2[i][j]) {
-                    // If any corresponding elements differ, the arrays are not identical
-                    return false;
-                }
-            }
-        }
-    
-        // If we get to this point, the arrays are identical
-        return true;
+public static void copy2DArray(int[][] tempBoard, int[][] gameBoard) {
+    // Check if the two arrays have the same dimensions
+    if (tempBoard.length != gameBoard.length || tempBoard[0].length != gameBoard[0].length) {
+        System.out.println("Arrays have different dimensions");
+        return;
     }
 
+    // Copy the contents of the first array into the second array
+    for (int i = 0; i < tempBoard.length; i++) {
+        for (int j = 0; j < tempBoard[0].length; j++) {
+            gameBoard[i][j] = tempBoard[i][j];
+        }
+    }
 }
+}
+
