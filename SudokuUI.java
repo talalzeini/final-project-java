@@ -7,20 +7,18 @@ import javax.swing.event.MouseInputListener;
 
 public class SudokuUI implements EventListener
 {
+    final static int GRID_SIZE = 9; // size of sudoku grid 9x9
 
-    private int[][] gameBoard;
-    private String title;
-    GraphicsConfiguration gc;
+    JTextField[][] sudokuJTextFields = new JTextField[GRID_SIZE][GRID_SIZE];
+    JButton timerButton;
+    JPanel gridJPanel;
+    JPanel inputPanel;
 
 
-    //Constructor
-    public SudokuUI(int[][] gameBoard)
+    //Constructor Generates the Static
+    public SudokuUI()
     {
-        this.gameBoard = gameBoard;
-    }
 
-
-    public static void main(String[] args) {
         JFrame frame = new JFrame("Sudoku Grid");
         JPanel panel = new JPanel(new BorderLayout());
         JPanel gridPanel = new JPanel(new GridLayout(9, 9));
@@ -38,11 +36,29 @@ public class SudokuUI implements EventListener
             gridPanel.add(textField);
         }
 
+       
+
         // Add the grid panel to the center of the main panel
         panel.add(gridPanel, BorderLayout.CENTER);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
         frame.setVisible(true);
+
+
+    }
+
+
+
+
+
+
+    
+
+    public static void main(String[] args) {
+
+        SudokuUI instance = new SudokuUI();
+
+       
     }
 }
