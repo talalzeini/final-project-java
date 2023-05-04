@@ -61,6 +61,16 @@ public class SudokuUI implements EventListener
         buttonPanel.add(mediumButton);
         buttonPanel.add(hardButton);
 
+        
+        easyButton.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+               // ADD CODE HERE
+            }
+         }
+         );
+         
         frame.add(buttonPanel, BorderLayout.NORTH); // Display the buttonPanel at the top of the frame
 
         // Set the background color of the button panel
