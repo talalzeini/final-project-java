@@ -7,7 +7,7 @@ import javax.swing.event.MouseInputListener;
 
 public class SudokuUI implements EventListener
 {
-    
+
     private int[][] gameBoard;
     private String title;
     GraphicsConfiguration gc;
@@ -17,21 +17,22 @@ public class SudokuUI implements EventListener
     public SudokuUI(int[][] gameBoard)
     {
         this.gameBoard = gameBoard;
-    }    
+    }
 
 
     public static void main(String[] args) {
-        
-        JFrame frame = new JFrame("Sudoku");
-        frame.setSize(1100, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JFrame frame = new JFrame("Sudoku Grid");
+        JPanel panel = new JPanel(new GridLayout(9, 9));
+
+        for (int i = 0; i < 81; i++) {
+            JTextField textField = new JTextField();
+            textField.setHorizontalAlignment(JTextField.CENTER);
+            panel.add(textField);
+        }
+
+        frame.add(panel);
+        frame.setSize(500, 500);
         frame.setVisible(true);
-       
-        JPanel p = new JPanel(new BorderLayout()); //PREFERRED!
-
-
-        //add(component)
-        //add(component)
-
     }
 }
