@@ -21,6 +21,28 @@ public class SudokuUI implements EventListener
 
 
     public static void main(String[] args) {
+
+        Sudoku userBoard = new Sudoku();
+        Sudoku sourceBoard = new Sudoku();
+
+
+        sourceBoard.initializeBoard();
+        sourceBoard.generateBoard(0);
+        System.out.println("\nSolved Board");
+        sourceBoard.printBoard();
+
+        userBoard.copyBoard(sourceBoard);
+
+        userBoard.removeNumbers(63); // 81 - 21 = 60 (considered hard)
+
+        System.out.println("\nUnsolved Board");
+        int[] unsolvedBoardOneDimensional = userBoard.printBoard();
+
+
+//         System.out.println(unsolvedBoard[0]);
+
+
+
         JFrame frame = new JFrame("Sudoku Grid");
         JPanel panel = new JPanel(new BorderLayout());
         JPanel gridPanel = new JPanel(new GridLayout(9, 9));
@@ -33,16 +55,39 @@ public class SudokuUI implements EventListener
 
         // Create and add the text fields to the grid panel
         for (int i = 0; i < 81; i++) {
-            JTextField textField = new JTextField();
-            textField.setHorizontalAlignment(JTextField.CENTER);
-            // Make bold lines to separate the 9 3x3 grids
-            textField.setBorder(BorderFactory.createMatteBorder(
-                    i / 9 == 0 ? 3 : 1, // top border
-                    i % 9 == 0 ? 3 : 1, // left border
-                    (i / 9 + 1) % 3 == 0 ? 3 : 1, // bottom border
-                    (i % 9 + 1) % 3 == 0 ? 3 : 1, // right border
-                    Color.BLACK));
-            gridPanel.add(textField);
+
+
+
+            // if cell == 0, create a textfield
+            if(unsolvedBoardOneDimensional[i] == 0) {
+                JTextField textField = new JTextField();
+                textField.setHorizontalAlignment(JTextField.CENTER);
+                // Make bold lines to separate the 9 3x3 grids
+                textField.setBorder(BorderFactory.createMatteBorder(
+                        i / 9 == 0 ? 3 : 1, // top border
+                        i % 9 == 0 ? 3 : 1, // left border
+                        (i / 9 + 1) % 3 == 0 ? 3 : 1, // bottom border
+                        (i % 9 + 1) % 3 == 0 ? 3 : 1, // right border
+                        Color.BLACK));
+
+                gridPanel.add(textField);
+
+                // if cell not == 0, create a label for the number value
+            }else {
+                JLabel numberLabel = new JLabel(Integer.toString(unsolvedBoardOneDimensional[i]));
+                numberLabel.setHorizontalAlignment(JTextField.CENTER);
+                // Make bold lines to separate the 9 3x3 grids
+                numberLabel.setBorder(BorderFactory.createMatteBorder(
+                        i / 9 == 0 ? 3 : 1, // top border
+                        i % 9 == 0 ? 3 : 1, // left border
+                        (i / 9 + 1) % 3 == 0 ? 3 : 1, // bottom border
+                        (i % 9 + 1) % 3 == 0 ? 3 : 1, // right border
+                        Color.BLACK));
+
+                gridPanel.add(numberLabel);
+            }
+
+
         }
 
         // Add the grid panel to the center of the main panel
@@ -61,16 +106,34 @@ public class SudokuUI implements EventListener
         buttonPanel.add(mediumButton);
         buttonPanel.add(hardButton);
 
-        
-        easyButton.addActionListener(new ActionListener() 
-        {
-            public void actionPerformed(ActionEvent e) 
-            {
-               // ADD CODE HERE
-            }
-         }
-         );
-         
+
+        easyButton.addActionListener(new ActionListener()
+                                     {
+                                         public void actionPerformed(ActionEvent e)
+                                         {
+                                             System.out.println("Easy");
+                                         }
+                                     }
+        );
+
+        mediumButton.addActionListener(new ActionListener()
+                                       {
+                                           public void actionPerformed(ActionEvent e)
+                                           {
+                                               System.out.println("Medium");
+                                           }
+                                       }
+        );
+
+        hardButton.addActionListener(new ActionListener()
+                                     {
+                                         public void actionPerformed(ActionEvent e)
+                                         {
+                                             System.out.println("Hard");
+                                         }
+                                     }
+        );
+
         frame.add(buttonPanel, BorderLayout.NORTH); // Display the buttonPanel at the top of the frame
 
         // Set the background color of the button panel

@@ -9,20 +9,21 @@ public class Sudoku
     private int[][] board = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the finished board
 
 
-    public void setBoard(int[][] board) 
+    public void setBoard(int[][] board)
     {
         this.board = board;
     }
 
-    public void copyBoard(Sudoku board) 
+    public void copyBoard(Sudoku board)
     {
         this.board = board.getBoard();
     }
-   
-    public int[][] getBoard() 
+
+    public int[][] getBoard()
     {
         return board;
     }
+
 
 
     public static void main(String[] args)
@@ -42,6 +43,7 @@ public class Sudoku
 
         System.out.println("\nUnsolved Board");
         userBoard.printBoard();
+
     }
 
     // Initializes the board with all cells set to zero
@@ -69,9 +71,9 @@ public class Sudoku
 
     }
 
-    public void removeNumbers(int cellsToRemove) 
+    public void removeNumbers(int cellsToRemove)
     {
-        while (cellsToRemove > 0) 
+        while (cellsToRemove > 0)
         {
             // Randomly pick a row and column index
             int row = (int)(Math.random() * GRID_SIZE);
@@ -87,7 +89,7 @@ public class Sudoku
                 cellsToRemove--; // Keep track of how many cells are being removed
 
             }
- 
+
 
             if(oneSolution(cellNumber) == false)
             {
@@ -101,21 +103,21 @@ public class Sudoku
 
     public boolean oneSolution(int cellNumber)
     {
-        /* 
+        /*
         //Sudoku tempBoard = new Sudoku();
         int[][] tempBoard;
 
         board.setBoard(tempBoard);
-        
+
         copy2DArray(userBoard.getBoard(), tempBoard);
 
         generateBoard(0);
 
-    
+
         if(Arrays.equals(userBoard.getBoard(), sourceBoard))
         {
             copy2DArray(tempBoard, userBoard.getBoard());
-        
+
             return true;
         }
         else
@@ -125,20 +127,32 @@ public class Sudoku
             return false;
         }
 */
-return true;
-        
+        return true;
+
     }
 
 
 
     // Print the board, will be replaced by GUI
-    public void printBoard() {
+    public int[] printBoard() {
+
+        int[] boardArray = new int[GRID_SIZE * GRID_SIZE];
+
+        // Convert the board to a one-dimensional array of integers
+        int index = 0;
+
         System.out.println("+-------+-------+-------+"); // Top border of the board
         // Print each row of the board
         for (int row = 0; row < GRID_SIZE; row++) {
             System.out.print("| ");
             // Print each column of the board
             for (int column = 0; column < GRID_SIZE; column++) {
+
+                // Update 1D Array to use for UI
+                boardArray[index] = board[row][column];
+                index++;
+
+
                 int value = board[row][column];
                 if (value == 0) { // Print the cell value as an empty space if it's zero
                     System.out.print("  ");
@@ -154,7 +168,27 @@ return true;
                 System.out.println("+-------+-------+-------+");  // Bottom border of the board
             }
         }
+        // Print the board as a one-dimensional array of integers
+
+        String arrayString = Arrays.toString(boardArray);
+        arrayString = arrayString.replace("[", "").replace("]", ""); // Remove square brackets
+        String[] elements = arrayString.split(", ");
+
+
+        int[] array = new int[elements.length];
+
+        for (int i = 0; i < elements.length; i++) {
+            array[i] = Integer.parseInt(elements[i]);
+        }
+
+        return array;
     }
+
+
+
+
+
+
 
     // Generate the rest of the board using backtracking method
     // Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
@@ -179,11 +213,11 @@ return true;
 
         for (int i = 1; i <= GRID_SIZE; i++) {
             // Check for validity
-            if (isValid(i, row, column)) 
+            if (isValid(i, row, column))
             { // Validate whether the cell can be filled with the value
                 board[row][column] = i; // Fill the cell with the value
 
-                if (generateBoard(currentCell + 1)) 
+                if (generateBoard(currentCell + 1))
                 { // Recursively call the function to fill the next cells
                     return true; // Retrun true was board is completely filled
                 }
@@ -248,14 +282,14 @@ return true;
         return true;
     }
 
-public void copy2DArray(int[][] tempBoard, int[][] gameBoard) 
-{
-    // Copy the contents of the first array into the second array
-    for (int i = 0; i < tempBoard.length; i++) {
-        for (int j = 0; j < tempBoard[0].length; j++) {
-            gameBoard[i][j] = tempBoard[i][j];
+    public void copy2DArray(int[][] tempBoard, int[][] gameBoard)
+    {
+        // Copy the contents of the first array into the second array
+        for (int i = 0; i < tempBoard.length; i++) {
+            for (int j = 0; j < tempBoard[0].length; j++) {
+                gameBoard[i][j] = tempBoard[i][j];
+            }
         }
     }
-}
 }
 
