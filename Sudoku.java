@@ -185,11 +185,6 @@ public class Sudoku
     }
 
 
-
-
-
-
-
     // Generate the rest of the board using backtracking method
     // Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
     // The integer named 'currentCell' should start with a 0 value
