@@ -2,7 +2,6 @@ import java.util.Collections;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.management.monitor.GaugeMonitor;
 public class Sudoku
 {
 
@@ -249,13 +248,8 @@ return true;
         return true;
     }
 
-public void copy2DArray(int[][] tempBoard, int[][] gameBoard) {
-    // Check if the two arrays have the same dimensions
-    if (tempBoard.length != gameBoard.length || tempBoard[0].length != gameBoard[0].length) {
-        System.out.println("Arrays have different dimensions");
-        return;
-    }
-
+public void copy2DArray(int[][] tempBoard, int[][] gameBoard) 
+{
     // Copy the contents of the first array into the second array
     for (int i = 0; i < tempBoard.length; i++) {
         for (int j = 0; j < tempBoard[0].length; j++) {
