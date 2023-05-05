@@ -2,10 +2,13 @@ import java.util.EventListener;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.event.MouseInputListener;
 
-public class SudokuUI implements EventListener
+public class SudokuUI implements EventListener 
 {
 
     private int[][] gameBoard;
@@ -19,11 +22,13 @@ public class SudokuUI implements EventListener
         this.gameBoard = gameBoard;
     }
 
-
+   
     public static void main(String[] args) {
 
         Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
+
+        int sum = 0;
 
 
         sourceBoard.initializeBoard();
@@ -56,8 +61,6 @@ public class SudokuUI implements EventListener
         // Create and add the text fields to the grid panel
         for (int i = 0; i < 81; i++) {
 
-
-
             // if cell == 0, create a textfield
             if(unsolvedBoardOneDimensional[i] == 0) {
                 JTextField textField = new JTextField();
@@ -73,7 +76,9 @@ public class SudokuUI implements EventListener
                 gridPanel.add(textField);
 
                 // if cell not == 0, create a label for the number value
-            }else {
+            }
+            else 
+            {
                 JLabel numberLabel = new JLabel(Integer.toString(unsolvedBoardOneDimensional[i]));
                 numberLabel.setHorizontalAlignment(JTextField.CENTER);
                 // Make bold lines to separate the 9 3x3 grids
@@ -85,10 +90,12 @@ public class SudokuUI implements EventListener
                         Color.BLACK));
 
                 gridPanel.add(numberLabel);
+                sum += unsolvedBoardOneDimensional[i];
             }
 
 
         }
+
 
         // Add the grid panel to the center of the main panel
         panel.add(gridPanel, BorderLayout.CENTER);
@@ -142,6 +149,30 @@ public class SudokuUI implements EventListener
         frame.add(panel);
         frame.setSize(500, 500);
         frame.setVisible(true);
+
+        frame.addMouseListener(new MouseAdapter() 
+        {
+            public void mouseClicked(MouseEvent e) 
+            {
+                
+            }
+        });
+      
+    
+        
+        
+        while(sum != 1215)
+        {
+
+
+            
+
+            JTextField box = new JTextField(" Enter Initial Velocity");
+            String velocity_str = box.getText();
+
+            double initialvelocity = Double.parseDouble(velocity_str);
+
+        }
 
     }
 }
