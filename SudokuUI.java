@@ -27,6 +27,8 @@ public class SudokuUI extends Sudoku implements EventListener
    
     public static void main(String[] args) {
 
+        int sum = 0;
+
         Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
 
@@ -38,7 +40,7 @@ public class SudokuUI extends Sudoku implements EventListener
 
         userBoard.copyBoard(sourceBoard);
 
-        userBoard.removeNumbers(63); // 81 - 21 = 60 (considered hard)
+        userBoard.removeNumbers(3); // 81 - 21 = 60 (considered hard)
 
         System.out.println("\nUnsolved Board");
         int[] unsolvedBoardOneDimensional = userBoard.printBoard();
@@ -67,6 +69,7 @@ public class SudokuUI extends Sudoku implements EventListener
             for (int col = 0; col < GRID_SIZE; col++) 
             {
                 int value = userBoard2[row][col];
+                sum += value;
                 //CellNode node = new CellNode(row, col, value);
                 
                 // if cell == 0, create a textfield
@@ -105,6 +108,7 @@ public class SudokuUI extends Sudoku implements EventListener
                 }
                 else 
                 {
+
                     JLabel numberLabel = new JLabel(Integer.toString(value));
                       //Cast the obj to CellNode
                       CellNode tempNode = new CellNode(row, col);
@@ -131,6 +135,7 @@ public class SudokuUI extends Sudoku implements EventListener
             }
         }
 
+            System.out.println("Sum of all values: " + sum);
 /* 
         // Create and add the text fields to the grid panel
         for (int i = 0; i < 81; i++) 
@@ -235,9 +240,44 @@ public class SudokuUI extends Sudoku implements EventListener
         frame.setSize(500, 500);
         frame.setVisible(true);
         
-        
 
         
+
+        int newSum = 0;
+        while(newSum != 405)
+        {
+
+            for(int row = 0; row < 9; row++)
+            {
+                for(int col = 0; col < 9; col++)
+                {
+                    CellNode temp = UIBoard[row][col];
+
+                    
+                    try {
+                    
+                        newSum += temp.getValue();
+                    } catch (NullPointerException e) {
+                        continue;
+                    }
+
+                  
+                    
+                }
+            }
+
+            if(newSum != 405)
+            {
+                newSum = 0;
+            }
+            
+
+
+
+
+        }
+
+        System.out.println("Done with Game u win");
 
         
 

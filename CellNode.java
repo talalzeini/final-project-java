@@ -8,24 +8,32 @@ public class CellNode extends JTextField
     private int col;
     private int value;
 
+    public int getRow() {
+        return row;
+    }
 
-    public CellNode(int row, int col, int value)
+    public int getCol() {
+        return col;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(String value) 
+    {
+        this.value = Integer.parseInt(value);
+       
+    }
+
+
+    public CellNode(int row, int col)
     {
         
-        super(value);
+        super();
         this.row = row;
         this.col = col;
-        this.value = value;
-
-        if(value == 0)
-        {
-            super.setEditable(true);
-        }
-        else
-        {
-            super.setEditable(false);
-        }
-
+     
 
     }    
 }
