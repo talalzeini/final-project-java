@@ -7,7 +7,7 @@ import javax.swing.*;
 public class SudokuUI extends Sudoku implements EventListener 
 {
 
-    private CellNode[][] UIBoard = new CellNode[9][9];
+    private static CellNode[][] UIBoard = new CellNode[9][9];
     private int[][] gameBoard;
     private String title;
     GraphicsConfiguration gc;
@@ -19,6 +19,11 @@ public class SudokuUI extends Sudoku implements EventListener
         this.gameBoard = gameBoard;
     }
 
+    public void getInput(JTextField objw)
+    {
+
+
+    }
    
     public static void main(String[] args) {
 
@@ -62,24 +67,85 @@ public class SudokuUI extends Sudoku implements EventListener
             for (int col = 0; col < GRID_SIZE; col++) 
             {
                 int value = userBoard2[row][col];
-                CellNode node = new CellNode(row, col, value);
+                //CellNode node = new CellNode(row, col, value);
+                
+                // if cell == 0, create a textfield
+                if(value == 0) 
+                {
+                    JTextField textField = new CellNode(row, col);
+                    textField.addActionListener(new ActionListener() 
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            //Cast the obj to CellNode
+                            CellNode tempNode = (CellNode)e.getSource();
+                            tempNode.setValue(textField.getText());
+                            int tempRow = tempNode.getRow();
+                            int tempCol = tempNode.getCol();
+
+                            UIBoard[tempRow][tempCol] = tempNode;
+
+                        System.out.println("Text=" + textField.getText());
+                        }
+                    });
+                        
+                    textField.setHorizontalAlignment(JTextField.CENTER);
+                    // Make bold lines to separate the 9 3x3 grids
+                    /* 
+                    textField.setBorder(BorderFactory.createMatteBorder(
+                            i / 9 == 0 ? 3 : 1, // top border
+                            i % 9 == 0 ? 3 : 1, // left border
+                            (i / 9 + 1) % 3 == 0 ? 3 : 1, // bottom border
+                            (i % 9 + 1) % 3 == 0 ? 3 : 1, // right border
+                            Color.BLACK));
+*/
+                    gridPanel.add(textField);
+
+                    // if cell not == 0, create a label for the number value
+                }
+                else 
+                {
+                    JLabel numberLabel = new JLabel(Integer.toString(value));
+                      //Cast the obj to CellNode
+                      CellNode tempNode = new CellNode(row, col);
+                      tempNode.setValue(Integer.toString(value));
+                      int tempRow = tempNode.getRow();
+                      int tempCol = tempNode.getCol();
+
+                      UIBoard[tempRow][tempCol] = tempNode;
+
+                    numberLabel.setHorizontalAlignment(JTextField.CENTER);
+                    // Make bold lines to separate the 9 3x3 grids
+                    /* 
+                    numberLabel.setBorder(BorderFactory.createMatteBorder(
+                            i / 9 == 0 ? 3 : 1, // top border
+                            i % 9 == 0 ? 3 : 1, // left border
+                            (i / 9 + 1) % 3 == 0 ? 3 : 1, // bottom border
+                            (i % 9 + 1) % 3 == 0 ? 3 : 1, // right border
+                            Color.BLACK));
+*/
+                    gridPanel.add(numberLabel);
+                }
                 
 
             }
         }
 
-
+/* 
         // Create and add the text fields to the grid panel
-        for (int i = 0; i < 81; i++) {
+        for (int i = 0; i < 81; i++) 
+        {
+
 
             // if cell == 0, create a textfield
             if(unsolvedBoardOneDimensional[i] == 0) 
             {
-                JTextField textField = new JTextField();
+                JTextField textField = new CellNode(row, col);
                 textField.addActionListener(new ActionListener() 
                 {
                     public void actionPerformed(ActionEvent e)
                     {
+                      //getInput(e.getSource());
                       System.out.println("Text=" + textField.getText());
                     }
                 });
@@ -114,7 +180,7 @@ public class SudokuUI extends Sudoku implements EventListener
 
 
         }
-
+*/
 
         // Add the grid panel to the center of the main panel
         panel.add(gridPanel, BorderLayout.CENTER);
@@ -170,6 +236,11 @@ public class SudokuUI extends Sudoku implements EventListener
         frame.setVisible(true);
         
         
+
+        
+
+        
+
     
 
     }
