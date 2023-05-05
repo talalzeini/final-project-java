@@ -62,8 +62,17 @@ public class SudokuUI implements EventListener
         for (int i = 0; i < 81; i++) {
 
             // if cell == 0, create a textfield
-            if(unsolvedBoardOneDimensional[i] == 0) {
+            if(unsolvedBoardOneDimensional[i] == 0) 
+            {
                 JTextField textField = new JTextField();
+                textField.addActionListener(new ActionListener() 
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                      System.out.println("Text=" + textField.getText());
+                    }
+                });
+                    
                 textField.setHorizontalAlignment(JTextField.CENTER);
                 // Make bold lines to separate the 9 3x3 grids
                 textField.setBorder(BorderFactory.createMatteBorder(
@@ -149,28 +158,11 @@ public class SudokuUI implements EventListener
         frame.add(panel);
         frame.setSize(500, 500);
         frame.setVisible(true);
-
-        frame.addMouseListener(new MouseAdapter() 
-        {
-            public void mouseClicked(MouseEvent e) 
-            {
-                
-            }
-        });
-      
-    
         
         
         while(sum != 1215)
         {
 
-
-            
-
-            JTextField box = new JTextField(" Enter Initial Velocity");
-            String velocity_str = box.getText();
-
-            double initialvelocity = Double.parseDouble(velocity_str);
 
         }
 
