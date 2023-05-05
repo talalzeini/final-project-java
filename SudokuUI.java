@@ -2,15 +2,12 @@ import java.util.EventListener;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
 
-import javax.swing.event.MouseInputListener;
 
-public class SudokuUI implements EventListener 
+public class SudokuUI extends Sudoku implements EventListener 
 {
 
+    private CellNode[][] UIBoard = new CellNode[9][9];
     private int[][] gameBoard;
     private String title;
     GraphicsConfiguration gc;
@@ -28,11 +25,9 @@ public class SudokuUI implements EventListener
         Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
 
-        int sum = 0;
-
-
         sourceBoard.initializeBoard();
         sourceBoard.generateBoard(0);
+
         System.out.println("\nSolved Board");
         sourceBoard.printBoard();
 
@@ -57,6 +52,22 @@ public class SudokuUI implements EventListener
         panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // add panel padding for more empty space
 
         frame.setResizable(false); // make the frame non-resizable, therefore responsive
+
+
+        //My attempt at this
+        int[][] userBoard2 = userBoard.getBoard();
+
+        for (int row = 0; row < GRID_SIZE; row++) 
+        {
+            for (int col = 0; col < GRID_SIZE; col++) 
+            {
+                int value = userBoard2[row][col];
+                CellNode node = new CellNode(row, col, value);
+                
+
+            }
+        }
+
 
         // Create and add the text fields to the grid panel
         for (int i = 0; i < 81; i++) {
@@ -99,7 +110,6 @@ public class SudokuUI implements EventListener
                         Color.BLACK));
 
                 gridPanel.add(numberLabel);
-                sum += unsolvedBoardOneDimensional[i];
             }
 
 
@@ -160,11 +170,7 @@ public class SudokuUI implements EventListener
         frame.setVisible(true);
         
         
-        while(sum != 1215)
-        {
-
-
-        }
+    
 
     }
 }
