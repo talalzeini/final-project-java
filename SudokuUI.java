@@ -8,13 +8,24 @@ import javax.swing.*;
 public class SudokuUI extends Sudoku implements EventListener 
 {
 
+    public static void UIBoardClear()
+    {
+        for(int row = 0; row < 9; row++)
+        {
+            for(int col = 0; col < 9; col++)
+            {
+                UIBoard[row][col] = null;
+            }
+        }
+    }
+
     private static CellNode[][] UIBoard = new CellNode[9][9];
     private static int[][] sourceBoard2D = new int[9][9]; 
     static int tries = 1;
 
     public static void generateUI(int diffculty, JPanel panel, JFrame frame, JLabel winLabel, JLabel triesLabel)
     {
-        
+        UIBoardClear();
     	Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
         JPanel gridPanel = new JPanel(new GridLayout(9, 9));
