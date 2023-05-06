@@ -25,6 +25,10 @@ public class Sudoku
         return board;
     }
 
+    public int getValue(int row, int col)
+    {
+        return board[row][col];
+    }
 
 
     public static void main(String[] args)
@@ -284,7 +288,7 @@ return true;
         return true;
     }
 
-    public void copy2DArray(int[][] tempBoard, int[][] gameBoard)
+    public static void copy2DArray(int[][] tempBoard, int[][] gameBoard)
     {
         // Copy the contents of the first array into the second array
         for (int i = 0; i < tempBoard.length; i++) {

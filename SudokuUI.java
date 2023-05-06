@@ -70,16 +70,22 @@ public class SudokuUI extends Sudoku implements EventListener
                             tempNode.setValue(textField.getText());
                             int tempRow = tempNode.getRow();
                             int tempCol = tempNode.getCol();
-
-                            int[][] tempSourceBoard = sourceBoard.getBoard();
                             
-                            if(tempNode.getValue() == tempSourceBoard[tempRow][tempCol])
+                            int[][] tempSourceBoard = new int[9][9];
+                            //copy2DArray(sourceBoard.getBoard(), tempSourceBoard);
+                           System.out.println("row" + tempRow);
+                           System.out.println("col" + tempCol);
+                            
+                            System.out.println("row col: " + sourceBoard.getValue(tempRow, tempCol));
+                            
+                            if(tempNode.getValue() == sourceBoard.getValue(tempRow, tempCol))
                             {
                                 UIBoard[tempRow][tempCol] = tempNode;
                             }
                             else
                             {
                                 textField.setText("");
+                                //TODO a JFrame popup saying wrong input
                                 System.out.println("WRONG INPUT");
                             }
 
