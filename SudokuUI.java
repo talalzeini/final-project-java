@@ -11,6 +11,12 @@ public class SudokuUI extends Sudoku implements EventListener
     private static CellNode[][] UIBoard = new CellNode[9][9];
     private static int[][] sourceBoard2D = new int[9][9]; 
 
+
+    public void generateUI()
+    {
+
+    }
+
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Sudoku Grid");
@@ -28,7 +34,6 @@ public class SudokuUI extends Sudoku implements EventListener
         buttonPanel.add(mediumButton);
         buttonPanel.add(hardButton);
         
-        int sum = 0;
         
         Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
@@ -89,9 +94,7 @@ public class SudokuUI extends Sudoku implements EventListener
             for (int col = 0; col < GRID_SIZE; col++) 
             {
                 int value = userBoard2[row][col];
-                sum += value;
-                //CellNode node = new CellNode(row, col, value);
-                
+                            
                 // if cell == 0, create a textfield
                 if(value == 0) 
                 {
