@@ -81,6 +81,10 @@ public class SudokuUI extends Sudoku implements EventListener
             }
         );
         
+        
+        JLabel winLabel = new JLabel("Game in progress...");
+        
+        
         panel.setVisible(true);
         panel.setBackground(Color.BLUE); // make panel background color blue
         panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // add panel padding for more empty space
@@ -118,7 +122,7 @@ public class SudokuUI extends Sudoku implements EventListener
                             else
                             {    
                                 textField.setText("");
-                                //TODO a JFrame popup saying wrong input
+                                winLabel.setText("Wrong Input!");
                                 //TODO Highlight the row and column
                                 //TODO highlight the other numbers that are the same
                                 System.out.println("WRONG INPUT");
@@ -153,7 +157,7 @@ public class SudokuUI extends Sudoku implements EventListener
             }
         }
             
-        JLabel winLabel = new JLabel("Game in progress...");
+        
         
         winningPanel.add(winLabel, BorderLayout.SOUTH);
         winLabel.setHorizontalAlignment(JTextField.CENTER);
