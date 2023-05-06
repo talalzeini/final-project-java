@@ -1,7 +1,7 @@
 import java.util.Collections;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+
 
 public class Sudoku
 {
@@ -104,32 +104,31 @@ public class Sudoku
 
     public boolean oneSolution(int cellNumber)
     {
-        /*
-        //Sudoku tempBoard = new Sudoku();
-        int[][] tempBoard;
+        /* 
+        Sudoku tempBoard = new Sudoku();
+        //int[][] tempBoard;
 
-        board.setBoard(tempBoard);
+        tempBoard.setBoard(board);
 
-        copy2DArray(userBoard.getBoard(), tempBoard);
+        //copy2DArray(userBoard.getBoard(), tempBoard);
 
-        generateBoard(0);
+        tempBoard.generateBoard(0);
 
 
-        if(Arrays.equals(userBoard.getBoard(), sourceBoard))
+        if(Arrays.equals(tempBoard.getBoard(), getBoard()))
         {
-            copy2DArray(tempBoard, userBoard.getBoard());
-
+            copy2DArray(tempBoard.getBoard(), getBoard());
+            
             return true;
         }
         else
         {
-            copy2DArray(tempBoard, userBoard.getBoard());
+            copy2DArray(tempBoard.getBoard(), getBoard());
             System.out.println("How many times are they not identical this occur?");
             return false;
         }
 */
-        return true;
-
+return true;
     }
 
 
