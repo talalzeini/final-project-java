@@ -1,6 +1,7 @@
 import java.util.Collections;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Sudoku
 {
@@ -206,7 +207,14 @@ public class Sudoku
             return generateBoard(currentCell + 1);
         }
 
-        for (int i = 1; i <= GRID_SIZE; i++) {
+          // Want to generate the first row using a random list of 1-9 to increase efficency of the rest of the soduku generation alogrithm
+          Integer[] numbers = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9}; // ex. 1 2 3 4 5 6 7 8 9
+          List<Integer> list = Arrays.asList(numbers);
+          Collections.shuffle(list); // ex. 4 2 1 3 8 9 5 6 7
+
+        //for(int i = 1; i <= GRID_SIZE; i++) 
+        for(int i: list)
+        {
             // Check for validity
             if (isValid(i, row, column))
             { // Validate whether the cell can be filled with the value
