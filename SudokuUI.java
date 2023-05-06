@@ -8,23 +8,8 @@ public class SudokuUI extends Sudoku implements EventListener
 {
 
     private static CellNode[][] UIBoard = new CellNode[9][9];
-    private int[][] gameBoard;
-    private String title;
-    GraphicsConfiguration gc;
 
 
-    //Constructor
-    public SudokuUI(int[][] gameBoard)
-    {
-        this.gameBoard = gameBoard;
-    }
-
-    public void getInput(JTextField objw)
-    {
-
-
-    }
-   
     public static void main(String[] args) {
 
         int sum = 0;
