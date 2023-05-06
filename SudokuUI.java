@@ -9,6 +9,7 @@ public class SudokuUI extends Sudoku implements EventListener
 {
 
     private static CellNode[][] UIBoard = new CellNode[9][9];
+    private static int[][] sourceBoard2D = new int[9][9]; 
 
     public static void main(String[] args) {
 
@@ -37,6 +38,9 @@ public class SudokuUI extends Sudoku implements EventListener
 
         System.out.println("\nSolved Board");
         sourceBoard.printBoard();
+
+        copy2DArray(sourceBoard.getBoard(), sourceBoard2D);
+      
 
         userBoard.copyBoard(sourceBoard);
 
@@ -102,11 +106,28 @@ public class SudokuUI extends Sudoku implements EventListener
                             
                             int tempRow = tempNode.getRow();
                             int tempCol = tempNode.getCol();
-                            UIBoard[tempRow][tempCol] = tempNode;
-                            
-              
 
-                        System.out.println("Text=" + textField.getText());
+                            System.out.println("Source board value" + sourceBoard2D[tempRow][tempCol]);
+
+                            System.out.println("tempNode value" + tempNode.getValue());
+                            if(tempNode.getValue() == sourceBoard2D[tempRow][tempCol])
+                            {
+                                UIBoard[tempRow][tempCol] = tempNode;
+
+                            }
+                            else
+                            {    
+                                textField.setText("");
+                                //TODO a JFrame popup saying wrong input
+                                //TODO Highlight the row and column
+                                //TODO highlight the other numbers that are the same
+                                System.out.println("WRONG INPUT");
+
+                            }
+                       
+                            
+
+              
                         }
                     });
                         
