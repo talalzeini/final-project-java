@@ -86,6 +86,8 @@ public class SudokuUI extends Sudoku implements EventListener
                             {
                                 textField.setText("");
                                 //TODO a JFrame popup saying wrong input
+                                //TODO Highlight the row and column
+                                //TODO highlight the other numbers that are the same
                                 System.out.println("WRONG INPUT");
                             }
 
