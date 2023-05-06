@@ -51,7 +51,15 @@ public class SudokuUI extends Sudoku implements EventListener
                         {
                             //Cast the obj to CellNode
                             CellNode tempNode = (CellNode)e.getSource();
-                            tempNode.setValue(textField.getText());
+                            try {
+                                tempNode.setValue(textField.getText());
+                            } 
+                            catch (NumberFormatException ee) 
+                            {
+                                tempNode.setValue("0");
+                                
+                            }
+                          
                             
                             int tempRow = tempNode.getRow();
                             int tempCol = tempNode.getCol();
@@ -216,11 +224,17 @@ public class SudokuUI extends Sudoku implements EventListener
             for(int row = 0; row < 9; row++) {
                 for(int col = 0; col < 9; col++) {
                     CellNode temp = UIBoard[row][col];
-                    try {
+                    try 
+                    {
+        
                         newSum += temp.getValue();
-                    } catch (NullPointerException e) {
+                        
+                    } 
+                    catch (NullPointerException e) 
+                    {
                         continue;
                     }  
+
                 }
             }
             if(newSum != 405)
