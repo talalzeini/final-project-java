@@ -7,21 +7,135 @@ import javax.swing.*;
 
 public class SudokuUI extends Sudoku implements EventListener 
 {
-
-    public static void UIBoardClear()
-    {
-        for(int row = 0; row < 9; row++)
-        {
-            for(int col = 0; col < 9; col++)
-            {
-                UIBoard[row][col] = null;
-            }
-        }
-    }
-
     private static CellNode[][] UIBoard = new CellNode[9][9];
     private static int[][] sourceBoard2D = new int[9][9]; 
     static int tries = 1;
+
+    public static void main(String[] args) {
+
+        JFrame frame = new JFrame("Sudoku Grid");
+        JPanel panel = new JPanel(new BorderLayout());
+        JPanel gridPanel = new JPanel(new GridLayout(9, 9));
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        JPanel winningPanel = new JPanel(new FlowLayout());
+        
+        // Buttons
+        JButton easyButton = new JButton("Easy");
+        JButton mediumButton = new JButton("Medium");
+        JButton hardButton = new JButton("Hard");
+
+        buttonPanel.add(easyButton);
+        buttonPanel.add(mediumButton);
+        buttonPanel.add(hardButton);
+    
+        
+        panel.setVisible(true);
+        panel.setBackground(Color.BLUE); // make panel background color blue
+        panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // add panel padding for more empty space
+
+        frame.setResizable(false); // make the frame non-resizable, therefore responsive
+
+       
+        JLabel winLabel = new JLabel("Game in progress...");
+        JLabel triesLabel = new JLabel("Tries");
+        
+        winningPanel.add(winLabel, BorderLayout.SOUTH);
+        winningPanel.add(triesLabel, BorderLayout.WEST);
+        winLabel.setHorizontalAlignment(JTextField.CENTER);
+        winLabel.setForeground(Color.WHITE);
+        winLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        triesLabel.setForeground(Color.WHITE);
+        triesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        winLabel.setVisible(true);
+        winLabel.setBackground(Color.BLUE);
+
+        // Add the grid panel to the center of the main panel
+        panel.add(gridPanel, BorderLayout.CENTER);
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 600);
+        frame.setVisible(true);
+
+        
+
+        frame.add(buttonPanel, BorderLayout.NORTH); // Display the buttonPanel at the top of the frame
+        frame.add(winningPanel, BorderLayout.SOUTH); // Display the winningPannel at the bottom of the frame
+        
+
+        // Set the background color of the button panel
+        buttonPanel.setBackground(Color.BLUE);
+        winningPanel.setBackground(Color.BLUE);
+
+
+        frame.add(panel);
+        frame.setSize(600, 600);
+        frame.setVisible(true);
+
+         easyButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    System.out.println("Easy");
+                    gridPanel.setVisible(false);
+                    generateUI(10, panel, frame, winLabel, triesLabel);  
+
+                }
+            }
+        );
+
+        mediumButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    System.out.println("Medium");
+                    gridPanel.setVisible(false);
+                    generateUI(30, panel, frame, winLabel, triesLabel);   
+                    
+                }
+            }
+        );
+
+        hardButton.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    System.out.println("Hard");
+                    gridPanel.setVisible(false);
+                    generateUI(54, panel, frame, winLabel, triesLabel);       
+
+                }
+            }
+        );
+        
+
+        int newSum = 0;
+        while(newSum != 405) {
+            for(int row = 0; row < 9; row++) {
+                for(int col = 0; col < 9; col++) {
+                    CellNode temp = UIBoard[row][col];
+                    try 
+                    {
+        
+                        newSum += temp.getValue();
+                        
+                    } 
+                    catch (NullPointerException e) 
+                    {
+                        continue;
+                    }  
+
+                }
+            }
+            if(newSum != 405)
+            {
+                newSum = 0;
+            }
+        }
+        System.out.println("You win!");
+        winLabel.setText("You win!");
+    }
+
 
     public static void generateUI(int diffculty, JPanel panel, JFrame frame, JLabel winLabel, JLabel triesLabel)
     {
@@ -44,7 +158,7 @@ public class SudokuUI extends Sudoku implements EventListener
         userBoard.removeNumbers(diffculty);
 
 
-         int[][] userBoard2 = userBoard.getBoard();
+        int[][] userBoard2 = userBoard.getBoard();
 
         for (int row = 0; row < GRID_SIZE; row++) 
         {
@@ -131,131 +245,14 @@ public class SudokuUI extends Sudoku implements EventListener
 
     }
 
-    public static void main(String[] args) {
-
-        JFrame frame = new JFrame("Sudoku Grid");
-        JPanel panel = new JPanel(new BorderLayout());
-        JPanel gridPanel = new JPanel(new GridLayout(9, 9));
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        JPanel winningPanel = new JPanel(new FlowLayout());
-        
-        // Buttons
-        JButton easyButton = new JButton("Easy");
-        JButton mediumButton = new JButton("Medium");
-        JButton hardButton = new JButton("Hard");
-
-        buttonPanel.add(easyButton);
-        buttonPanel.add(mediumButton);
-        buttonPanel.add(hardButton);
-    
-        
-        panel.setVisible(true);
-        panel.setBackground(Color.BLUE); // make panel background color blue
-        panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // add panel padding for more empty space
-
-        frame.setResizable(false); // make the frame non-resizable, therefore responsive
-
-       
-        JLabel winLabel = new JLabel("Game in progress...");
-        JLabel triesLabel = new JLabel("Tries");
-        
-        winningPanel.add(winLabel, BorderLayout.SOUTH);
-        winningPanel.add(triesLabel, BorderLayout.WEST);
-        winLabel.setHorizontalAlignment(JTextField.CENTER);
-        winLabel.setForeground(Color.WHITE);
-        winLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        triesLabel.setForeground(Color.WHITE);
-        triesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        winLabel.setVisible(true);
-        winLabel.setBackground(Color.BLUE);
-
-        // Add the grid panel to the center of the main panel
-        panel.add(gridPanel, BorderLayout.CENTER);
-        frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 600);
-        frame.setVisible(true);
-
-        
-
-        frame.add(buttonPanel, BorderLayout.NORTH); // Display the buttonPanel at the top of the frame
-        frame.add(winningPanel, BorderLayout.SOUTH); // Display the winningPannel at the bottom of the frame
-        
-
-        // Set the background color of the button panel
-        buttonPanel.setBackground(Color.BLUE);
-        winningPanel.setBackground(Color.BLUE);
-
-
-        frame.add(panel);
-        frame.setSize(600, 600);
-        frame.setVisible(true);
-
-
-
-
-         easyButton.addActionListener(new ActionListener()
+    public static void UIBoardClear()
+    {
+        for(int row = 0; row < 9; row++)
+        {
+            for(int col = 0; col < 9; col++)
             {
-                public void actionPerformed(ActionEvent e)
-                {
-                    System.out.println("Easy");
-                    gridPanel.setVisible(false);
-                    generateUI(10, panel, frame, winLabel, triesLabel);  
-
-                }
-            }
-        );
-
-        mediumButton.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent e)
-                {
-                    System.out.println("Medium");
-                    gridPanel.setVisible(false);
-                    generateUI(30, panel, frame, winLabel, triesLabel);   
-                    
-                }
-            }
-        );
-
-        hardButton.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent e)
-                {
-                    System.out.println("Hard");
-                    gridPanel.setVisible(false);
-                    generateUI(54, panel, frame, winLabel, triesLabel);       
-
-                }
-            }
-        );
-        
-
-        int newSum = 0;
-        while(newSum != 405) {
-            for(int row = 0; row < 9; row++) {
-                for(int col = 0; col < 9; col++) {
-                    CellNode temp = UIBoard[row][col];
-                    try 
-                    {
-        
-                        newSum += temp.getValue();
-                        
-                    } 
-                    catch (NullPointerException e) 
-                    {
-                        continue;
-                    }  
-
-                }
-            }
-            if(newSum != 405)
-            {
-                newSum = 0;
+                UIBoard[row][col] = null;
             }
         }
-        System.out.println("You win!");
-        winLabel.setText("You win!");
     }
 }
