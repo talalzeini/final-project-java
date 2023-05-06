@@ -68,9 +68,12 @@ public class SudokuUI extends Sudoku implements EventListener
                             //Cast the obj to CellNode
                             CellNode tempNode = (CellNode)e.getSource();
                             tempNode.setValue(textField.getText());
+                            
                             int tempRow = tempNode.getRow();
                             int tempCol = tempNode.getCol();
+                            UIBoard[tempRow][tempCol] = tempNode;
                             
+                            /* 
                             int[][] tempSourceBoard = new int[9][9];
                             //copy2DArray(sourceBoard.getBoard(), tempSourceBoard);
                            System.out.println("row" + tempRow);
@@ -90,7 +93,7 @@ public class SudokuUI extends Sudoku implements EventListener
                                 //TODO highlight the other numbers that are the same
                                 System.out.println("WRONG INPUT");
                             }
-
+*/
                             
 
                         System.out.println("Text=" + textField.getText());
@@ -258,11 +261,11 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
                     CellNode temp = UIBoard[row][col];
 
-                    
                     try {
                     
                         newSum += temp.getValue();
-                    } catch (NullPointerException e) {
+                    } catch (NullPointerException e) 
+                    {
                         continue;
                     }
 
