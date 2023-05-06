@@ -45,6 +45,7 @@ public class SudokuUI extends Sudoku implements EventListener
                 if(value == 0) 
                 {
                     JTextField textField = new CellNode(row, col);
+                    textField.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
                     textField.addActionListener(new ActionListener() 
                     {
                         public void actionPerformed(ActionEvent e)
@@ -93,6 +94,7 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
 
                     JLabel numberLabel = new JLabel(Integer.toString(value));
+                    numberLabel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
                         //Cast the obj to CellNode
                         CellNode tempNode = new CellNode(row, col);
                         tempNode.setValue(Integer.toString(value));
