@@ -107,9 +107,6 @@ public class SudokuUI extends Sudoku implements EventListener
                             int tempRow = tempNode.getRow();
                             int tempCol = tempNode.getCol();
 
-                            System.out.println("Source board value" + sourceBoard2D[tempRow][tempCol]);
-
-                            System.out.println("tempNode value" + tempNode.getValue());
                             if(tempNode.getValue() == sourceBoard2D[tempRow][tempCol])
                             {
                                 UIBoard[tempRow][tempCol] = tempNode;
@@ -124,8 +121,6 @@ public class SudokuUI extends Sudoku implements EventListener
                                 System.out.println("WRONG INPUT");
 
                             }
-                       
-                            
 
               
                         }
@@ -154,9 +149,6 @@ public class SudokuUI extends Sudoku implements EventListener
 
             }
         }
-
-            System.out.println("Sum of all values: " + sum);
-
             
         JLabel winLabel = new JLabel("Game in progress...");
         
