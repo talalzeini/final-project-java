@@ -11,10 +11,11 @@ public class SudokuUI extends Sudoku implements EventListener
     private static CellNode[][] UIBoard = new CellNode[9][9];
     private static int[][] sourceBoard2D = new int[9][9]; 
 
-    public static void generateUI(int diffculty,  JPanel gridPanel, JPanel panel, JFrame frame)
+    public static void generateUI(int diffculty, JPanel panel, JFrame frame)
     {
         Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
+        JPanel gridPanel = new JPanel(new GridLayout(9, 9));
 
         sourceBoard.initializeBoard();
         sourceBoard.generateBoard(0);
@@ -169,8 +170,8 @@ public class SudokuUI extends Sudoku implements EventListener
                 public void actionPerformed(ActionEvent e)
                 {
                     System.out.println("Easy");
-                    generateUI(10, gridPanel, panel, frame);
-
+                    gridPanel.setVisible(false);
+                    generateUI(10, panel, frame);  
 
                 }
             }
@@ -181,7 +182,9 @@ public class SudokuUI extends Sudoku implements EventListener
                 public void actionPerformed(ActionEvent e)
                 {
                     System.out.println("Medium");
-                    generateUI(30, gridPanel, panel, frame);
+                    gridPanel.setVisible(false);
+                    generateUI(30, panel, frame);   
+                    
                 }
             }
         );
@@ -191,7 +194,8 @@ public class SudokuUI extends Sudoku implements EventListener
                 public void actionPerformed(ActionEvent e)
                 {
                     System.out.println("Hard");
-                    generateUI(54, gridPanel, panel, frame);
+                    gridPanel.setVisible(false);
+                    generateUI(54, panel, frame);       
 
                 }
             }
