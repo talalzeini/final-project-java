@@ -23,10 +23,12 @@ public class SudokuUI extends Sudoku implements EventListener
         JButton easyButton = new JButton("Easy");
         JButton mediumButton = new JButton("Medium");
         JButton hardButton = new JButton("Hard");
+        JButton solve = new JButton("Solve");
 
         buttonPanel.add(easyButton);
         buttonPanel.add(mediumButton);
         buttonPanel.add(hardButton);
+        buttonPanel.add(solve);
     
         
         panel.setVisible(true);
@@ -107,6 +109,17 @@ public class SudokuUI extends Sudoku implements EventListener
                 }
             }
         );
+        solve.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                System.out.println("Solve");
+                gridPanel.setVisible(false);
+                solveBoard(panel, frame, winLabel, triesLabel);       
+
+            }
+        }
+    );
         
 
         int newSum = 0;
@@ -159,6 +172,99 @@ public class SudokuUI extends Sudoku implements EventListener
 
 
         int[][] userBoard2 = userBoard.getBoard();
+
+        for (int row = 0; row < GRID_SIZE; row++) 
+        {
+            for (int col = 0; col < GRID_SIZE; col++) 
+            {
+                int value = userBoard2[row][col];
+                            
+                // if cell == 0, create a textfield
+                if(value == 0) 
+                {
+                    JTextField textField = new CellNode(row, col);
+                    textField.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
+                    textField.addActionListener(new ActionListener() 
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            //Cast the obj to CellNode
+                            CellNode tempNode = (CellNode)e.getSource();
+                            try {
+                                tempNode.setValue(textField.getText());
+                            } 
+                            catch (NumberFormatException ee) 
+                            {
+                                tempNode.setValue("0");
+                                
+                            }
+                          
+                            
+                            int tempRow = tempNode.getRow();
+                            int tempCol = tempNode.getCol();
+
+                            if(tempNode.getValue() == sourceBoard2D[tempRow][tempCol])
+                            {
+                                UIBoard[tempRow][tempCol] = tempNode;
+
+                            }
+                            else
+                            {    
+                            	triesLabel.setText("Tries: " + Integer.toString(tries));
+                            	tries += 1;
+                                textField.setText("");
+                                winLabel.setText("Wrong Input!");
+                                //TODO Highlight the row and column
+                                //TODO highlight the other numbers that are the same
+                                System.out.println("WRONG INPUT");
+
+                            }
+
+              
+                        }
+                    });
+                        
+                    textField.setHorizontalAlignment(JTextField.CENTER);
+
+                    gridPanel.add(textField);
+                }
+                else 
+                {
+
+                    JLabel numberLabel = new JLabel(Integer.toString(value));
+                    numberLabel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
+                        //Cast the obj to CellNode
+                        CellNode tempNode = new CellNode(row, col);
+                        tempNode.setValue(Integer.toString(value));
+                        int tempRow = tempNode.getRow();
+                        int tempCol = tempNode.getCol();
+
+                        UIBoard[tempRow][tempCol] = tempNode;
+
+                    numberLabel.setHorizontalAlignment(JTextField.CENTER);
+                    gridPanel.add(numberLabel);
+                }
+                
+
+            }
+        }
+
+        panel.add(gridPanel, BorderLayout.CENTER);
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 600);
+        frame.setVisible(true);
+
+
+    }
+
+    public static void solveBoard(JPanel panel, JFrame frame, JLabel winLabel, JLabel triesLabel)
+    {
+    
+        JPanel gridPanel = new JPanel(new GridLayout(9, 9));
+
+        int[][] userBoard2 = new int[9][9];
+        copy2DArray(sourceBoard2D, userBoard2);
 
         for (int row = 0; row < GRID_SIZE; row++) 
         {
