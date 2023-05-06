@@ -10,10 +10,12 @@ public class SudokuUI extends Sudoku implements EventListener
 
     private static CellNode[][] UIBoard = new CellNode[9][9];
     private static int[][] sourceBoard2D = new int[9][9]; 
+    static int tries = 1;
 
-    public static void generateUI(int diffculty, JPanel panel, JFrame frame)
+    public static void generateUI(int diffculty, JPanel panel, JFrame frame, JLabel winLabel, JLabel triesLabel)
     {
-        Sudoku userBoard = new Sudoku();
+        
+    	Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
         JPanel gridPanel = new JPanel(new GridLayout(9, 9));
 
@@ -61,8 +63,10 @@ public class SudokuUI extends Sudoku implements EventListener
                             }
                             else
                             {    
+                            	triesLabel.setText("Tries: " + Integer.toString(tries));
+                            	tries += 1;
                                 textField.setText("");
-                                //TODO a JFrame popup saying wrong input
+                                winLabel.setText("Wrong Input!");
                                 //TODO Highlight the row and column
                                 //TODO highlight the other numbers that are the same
                                 System.out.println("WRONG INPUT");
@@ -100,7 +104,7 @@ public class SudokuUI extends Sudoku implements EventListener
         panel.add(gridPanel, BorderLayout.CENTER);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 900);
+        frame.setSize(600, 600);
         frame.setVisible(true);
 
 
@@ -132,11 +136,15 @@ public class SudokuUI extends Sudoku implements EventListener
 
        
         JLabel winLabel = new JLabel("Game in progress...");
+        JLabel triesLabel = new JLabel("Tries");
         
         winningPanel.add(winLabel, BorderLayout.SOUTH);
+        winningPanel.add(triesLabel, BorderLayout.WEST);
         winLabel.setHorizontalAlignment(JTextField.CENTER);
         winLabel.setForeground(Color.WHITE);
         winLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        triesLabel.setForeground(Color.WHITE);
+        triesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         winLabel.setVisible(true);
         winLabel.setBackground(Color.BLUE);
@@ -145,13 +153,14 @@ public class SudokuUI extends Sudoku implements EventListener
         panel.add(gridPanel, BorderLayout.CENTER);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 900);
+        frame.setSize(600, 600);
         frame.setVisible(true);
 
         
 
         frame.add(buttonPanel, BorderLayout.NORTH); // Display the buttonPanel at the top of the frame
-        frame.add(winningPanel, BorderLayout.SOUTH); // Display the buttonPanel at the top of the frame
+        frame.add(winningPanel, BorderLayout.SOUTH); // Display the winningPannel at the bottom of the frame
+        
 
         // Set the background color of the button panel
         buttonPanel.setBackground(Color.BLUE);
@@ -171,7 +180,7 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
                     System.out.println("Easy");
                     gridPanel.setVisible(false);
-                    generateUI(10, panel, frame);  
+                    generateUI(10, panel, frame, winLabel, triesLabel);  
 
                 }
             }
@@ -183,7 +192,7 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
                     System.out.println("Medium");
                     gridPanel.setVisible(false);
-                    generateUI(30, panel, frame);   
+                    generateUI(30, panel, frame, winLabel, triesLabel);   
                     
                 }
             }
@@ -195,7 +204,7 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
                     System.out.println("Hard");
                     gridPanel.setVisible(false);
-                    generateUI(54, panel, frame);       
+                    generateUI(54, panel, frame, winLabel, triesLabel);       
 
                 }
             }
