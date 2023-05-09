@@ -28,7 +28,7 @@ public class SudokuUI extends Sudoku implements EventListener
         buttonPanel.add(easyButton);
         buttonPanel.add(mediumButton);
         buttonPanel.add(hardButton);
-        buttonPanel.add(solve);
+       
     
         
         panel.setVisible(true);
@@ -39,9 +39,10 @@ public class SudokuUI extends Sudoku implements EventListener
 
        
         JLabel winLabel = new JLabel("Game in progress...");
-        JLabel triesLabel = new JLabel("Tries");
+        JLabel triesLabel = new JLabel("Tries: 0");
         
         winningPanel.add(winLabel, BorderLayout.SOUTH);
+        winningPanel.add(solve, BorderLayout.SOUTH);
         winningPanel.add(triesLabel, BorderLayout.WEST);
         winLabel.setHorizontalAlignment(JTextField.CENTER);
         winLabel.setForeground(Color.WHITE);
@@ -178,12 +179,30 @@ public class SudokuUI extends Sudoku implements EventListener
             for (int col = 0; col < GRID_SIZE; col++) 
             {
                 int value = userBoard2[row][col];
+                int top = 0, left = 0, bottom = 0, right = 0;
                             
                 // if cell == 0, create a textfield
                 if(value == 0) 
                 {
                     JTextField textField = new CellNode(row, col);
-                    textField.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
+                    textField.setForeground(Color.WHITE);
+                    if (row % 3 == 0) {
+                        top = 3;
+                    }
+                    if (col % 3 == 0) {
+                        left = 3;
+                    }
+                    if (row == 8) {
+                        bottom = 3;
+                    }
+                    if (col == 8) {
+                        right = 3;
+                    }
+                    textField.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.BLACK));
+           
+                    gridPanel.add(textField);
+                    
+                    
                     textField.addActionListener(new ActionListener() 
                     {
                         public void actionPerformed(ActionEvent e)
@@ -232,7 +251,19 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
 
                     JLabel numberLabel = new JLabel(Integer.toString(value));
-                    numberLabel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
+                    if (row % 3 == 0) {
+                        top = 3;
+                    }
+                    if (col % 3 == 0) {
+                        left = 3;
+                    }
+                    if (row == 8) {
+                        bottom = 3;
+                    }
+                    if (col == 8) {
+                        right = 3;
+                    }
+                    numberLabel.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.BLACK));
                         //Cast the obj to CellNode
                         CellNode tempNode = new CellNode(row, col);
                         tempNode.setValue(Integer.toString(value));
@@ -271,12 +302,27 @@ public class SudokuUI extends Sudoku implements EventListener
             for (int col = 0; col < GRID_SIZE; col++) 
             {
                 int value = userBoard2[row][col];
+                
                             
                 // if cell == 0, create a textfield
                 if(value == 0) 
                 {
                     JTextField textField = new CellNode(row, col);
-                    textField.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
+                    int top = 0, left = 0, bottom = 0, right = 0;
+                    if (row % 3 == 0) {
+                        top = 3;
+                    }
+                    if (col % 3 == 0) {
+                        left = 3;
+                    }
+                    if (row == 8) {
+                        bottom = 3;
+                    }
+                    if (col == 8) {
+                        right = 3;
+                    }
+                    textField.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.BLACK));
+      
                     textField.addActionListener(new ActionListener() 
                     {
                         public void actionPerformed(ActionEvent e)
@@ -325,7 +371,20 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
 
                     JLabel numberLabel = new JLabel(Integer.toString(value));
-                    numberLabel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
+                    int top = 0, left = 0, bottom = 0, right = 0;
+		                    if (row % 3 == 0) {
+		                        top = 3;
+		                    }
+		                    if (col % 3 == 0) {
+		                        left = 3;
+		                    }
+		                    if (row == 8) {
+		                        bottom = 3;
+		                    }
+		                    if (col == 8) {
+		                        right = 3;
+		                    }
+	                    numberLabel.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.BLACK));
                         //Cast the obj to CellNode
                         CellNode tempNode = new CellNode(row, col);
                         tempNode.setValue(Integer.toString(value));
