@@ -9,8 +9,8 @@ public class SudokuUI extends Sudoku implements EventListener
 {
     private static CellNode[][] UIBoard = new CellNode[9][9];
     private static int[][] sourceBoard2D = new int[9][9]; 
-    static int tries = 1;
-
+    static int steps = 1;
+    
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Sudoku Grid");
@@ -39,16 +39,16 @@ public class SudokuUI extends Sudoku implements EventListener
 
        
         JLabel winLabel = new JLabel("Game in progress...");
-        JLabel triesLabel = new JLabel("Tries: 0");
+        JLabel stepsLabel = new JLabel("Steps: 0");
         
         winningPanel.add(winLabel, BorderLayout.SOUTH);
         winningPanel.add(solve, BorderLayout.SOUTH);
-        winningPanel.add(triesLabel, BorderLayout.WEST);
+        winningPanel.add(stepsLabel, BorderLayout.WEST);
         winLabel.setHorizontalAlignment(JTextField.CENTER);
         winLabel.setForeground(Color.WHITE);
         winLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        triesLabel.setForeground(Color.WHITE);
-        triesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        stepsLabel.setForeground(Color.WHITE);
+        stepsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         winLabel.setVisible(true);
         winLabel.setBackground(Color.BLUE);
@@ -74,6 +74,8 @@ public class SudokuUI extends Sudoku implements EventListener
         frame.add(panel);
         frame.setSize(600, 600);
         frame.setVisible(true);
+        
+        winningPanel.setVisible(false);
 
          easyButton.addActionListener(new ActionListener()
             {
@@ -81,7 +83,8 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
                     System.out.println("Easy");
                     gridPanel.setVisible(false);
-                    generateUI(10, panel, frame, winLabel, triesLabel);  
+                    winningPanel.setVisible(true);
+                    generateUI(10, panel, frame, winLabel, stepsLabel);  
 
                 }
             }
@@ -93,7 +96,8 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
                     System.out.println("Medium");
                     gridPanel.setVisible(false);
-                    generateUI(30, panel, frame, winLabel, triesLabel);   
+                    winningPanel.setVisible(true);
+                    generateUI(30, panel, frame, winLabel, stepsLabel);   
                     
                 }
             }
@@ -105,7 +109,8 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
                     System.out.println("Hard");
                     gridPanel.setVisible(false);
-                    generateUI(54, panel, frame, winLabel, triesLabel);       
+                    winningPanel.setVisible(true);
+                    generateUI(54, panel, frame, winLabel, stepsLabel);       
 
                 }
             }
@@ -116,7 +121,7 @@ public class SudokuUI extends Sudoku implements EventListener
             {
                 System.out.println("Solve");
                 gridPanel.setVisible(false);
-                solveBoard(panel, frame, winLabel, triesLabel);       
+                solveBoard(panel, frame, winLabel, stepsLabel);       
 
             }
         }
@@ -151,8 +156,11 @@ public class SudokuUI extends Sudoku implements EventListener
     }
 
 
-    public static void generateUI(int diffculty, JPanel panel, JFrame frame, JLabel winLabel, JLabel triesLabel)
+    public static void generateUI(int diffculty, JPanel panel, JFrame frame, JLabel winLabel, JLabel stepsLabel)
     {
+    	
+    	steps = 0;
+    	stepsLabel.setText("Steps: " + Integer.toString(steps));
         UIBoardClear();
     	Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
@@ -170,6 +178,12 @@ public class SudokuUI extends Sudoku implements EventListener
         userBoard.copyBoard(sourceBoard);
 
         userBoard.removeNumbers(diffculty);
+        
+        
+        gridPanel.setBackground(Color.BLUE);
+        
+        
+        
 
 
         int[][] userBoard2 = userBoard.getBoard();
@@ -185,7 +199,9 @@ public class SudokuUI extends Sudoku implements EventListener
                 if(value == 0) 
                 {
                     JTextField textField = new CellNode(row, col);
-                    textField.setBackground(Color.WHITE);
+                    textField.setBackground(Color.LIGHT_GRAY);
+                    textField.setForeground(Color.BLACK);
+                    
                     if (row % 3 == 0) {
                         top = 3;
                     }
@@ -229,8 +245,8 @@ public class SudokuUI extends Sudoku implements EventListener
                             }
                             else
                             {    
-                            	triesLabel.setText("Tries: " + Integer.toString(tries));
-                            	tries += 1;
+                            	steps += 1;
+                            	stepsLabel.setText("Steps: " + Integer.toString(steps));
                                 textField.setText("");
                                 winLabel.setText("Wrong Input!");
                                 //TODO Highlight the row and column
@@ -251,6 +267,8 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
 
                     JLabel numberLabel = new JLabel(Integer.toString(value));
+                    numberLabel.setOpaque(true); // make the label opaque
+                    numberLabel.setBackground(Color.WHITE);
                     if (row % 3 == 0) {
                         top = 3;
                     }
@@ -289,11 +307,14 @@ public class SudokuUI extends Sudoku implements EventListener
 
     }
 
-    public static void solveBoard(JPanel panel, JFrame frame, JLabel winLabel, JLabel triesLabel)
+    public static void solveBoard(JPanel panel, JFrame frame, JLabel winLabel, JLabel stepsLabel)
     {
     
         JPanel gridPanel = new JPanel(new GridLayout(9, 9));
 
+        gridPanel.setBackground(Color.BLUE);
+        
+        
         int[][] userBoard2 = new int[9][9];
         copy2DArray(sourceBoard2D, userBoard2);
 
@@ -308,6 +329,8 @@ public class SudokuUI extends Sudoku implements EventListener
                 if(value == 0) 
                 {
                     JTextField textField = new CellNode(row, col);
+                    textField.setBackground(Color.LIGHT_GRAY);
+                    textField.setForeground(Color.BLACK);
                     int top = 0, left = 0, bottom = 0, right = 0;
                     if (row % 3 == 0) {
                         top = 3;
@@ -349,8 +372,8 @@ public class SudokuUI extends Sudoku implements EventListener
                             }
                             else
                             {    
-                            	triesLabel.setText("Tries: " + Integer.toString(tries));
-                            	tries += 1;
+                            	stepsLabel.setText("Steps: " + Integer.toString(steps));
+                            	steps += 1;
                                 textField.setText("");
                                 winLabel.setText("Wrong Input!");
                                 //TODO Highlight the row and column
@@ -371,6 +394,8 @@ public class SudokuUI extends Sudoku implements EventListener
                 {
 
                     JLabel numberLabel = new JLabel(Integer.toString(value));
+                    numberLabel.setOpaque(true); // make the label opaque
+                    numberLabel.setBackground(Color.WHITE);
                     int top = 0, left = 0, bottom = 0, right = 0;
 		                    if (row % 3 == 0) {
 		                        top = 3;
