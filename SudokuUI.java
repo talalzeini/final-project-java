@@ -185,7 +185,7 @@ public class SudokuUI extends Sudoku implements EventListener
                 if(value == 0) 
                 {
                     JTextField textField = new CellNode(row, col);
-                    textField.setForeground(Color.WHITE);
+                    textField.setBackground(Color.WHITE);
                     if (row % 3 == 0) {
                         top = 3;
                     }
