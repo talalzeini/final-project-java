@@ -25,6 +25,12 @@ public class SudokuUI extends Sudoku implements EventListener
         JButton hardButton = new JButton("Hard");
         JButton solve = new JButton("Solve");
 
+        
+        easyButton.setMargin(new Insets(10, 20, 10, 20));
+        mediumButton.setMargin(new Insets(10, 20, 10, 20));
+        hardButton.setMargin(new Insets(10, 20, 10, 20));
+        solve.setMargin(new Insets(10, 20, 10, 20));
+        
         buttonPanel.add(easyButton);
         buttonPanel.add(mediumButton);
         buttonPanel.add(hardButton);
@@ -39,19 +45,28 @@ public class SudokuUI extends Sudoku implements EventListener
 
        
         JLabel winLabel = new JLabel("Game in progress...");
+        winLabel.setOpaque(true); // make the label opaque
+        winLabel.setBackground(Color.RED);
+        
+        winLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        
+        
         JLabel stepsLabel = new JLabel("Steps: 0");
         
         winningPanel.add(winLabel, BorderLayout.SOUTH);
         winningPanel.add(solve, BorderLayout.SOUTH);
         winningPanel.add(stepsLabel, BorderLayout.WEST);
         winLabel.setHorizontalAlignment(JTextField.CENTER);
-        winLabel.setForeground(Color.WHITE);
         winLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         stepsLabel.setForeground(Color.WHITE);
         stepsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+       
+        winLabel.setBackground(Color.YELLOW);
+        winLabel.setForeground(Color.BLACK);
+        
+        
         winLabel.setVisible(true);
-        winLabel.setBackground(Color.BLUE);
 
         // Add the grid panel to the center of the main panel
         panel.add(gridPanel, BorderLayout.CENTER);
@@ -152,6 +167,8 @@ public class SudokuUI extends Sudoku implements EventListener
             }
         }
         System.out.println("You win!");
+        winLabel.setBackground(Color.GREEN);
+        winLabel.setForeground(Color.BLACK);
         winLabel.setText("You win!");
     }
 
@@ -249,6 +266,9 @@ public class SudokuUI extends Sudoku implements EventListener
                             	stepsLabel.setText("Steps: " + Integer.toString(steps));
                                 textField.setText("");
                                 winLabel.setText("Wrong Input!");
+                                winLabel.setBackground(Color.RED);
+                                winLabel.setForeground(Color.WHITE);
+
                                 //TODO Highlight the row and column
                                 //TODO highlight the other numbers that are the same
                                 System.out.println("WRONG INPUT");
