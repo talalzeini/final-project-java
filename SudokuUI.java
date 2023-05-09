@@ -258,7 +258,9 @@ public class SudokuUI extends Sudoku implements EventListener
                             if(tempNode.getValue() == sourceBoard2D[tempRow][tempCol])
                             {
                                 UIBoard[tempRow][tempCol] = tempNode;
-
+                                winLabel.setText("Game in progress...");
+                                winLabel.setBackground(Color.YELLOW);
+                                winLabel.setForeground(Color.BLACK);
                             }
                             else
                             {    
