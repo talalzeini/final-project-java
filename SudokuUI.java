@@ -1,4 +1,3 @@
-
 import java.util.EventListener;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,6 +17,10 @@ public class SudokuUI extends Sudoku implements EventListener
         JPanel gridPanel = new JPanel(new GridLayout(9, 9));
         JPanel buttonPanel = new JPanel(new FlowLayout());
         JPanel winningPanel = new JPanel(new FlowLayout());
+        
+        
+        
+
         
         // Buttons
         JButton easyButton = new JButton("Easy");
@@ -95,11 +98,14 @@ public class SudokuUI extends Sudoku implements EventListener
          easyButton.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
-                {
+                {  
                     System.out.println("Easy");
-                    gridPanel.setVisible(false);
+                    gridPanel.removeAll();
                     winningPanel.setVisible(true);
-                    generateUI(10, panel, frame, winLabel, stepsLabel);  
+                    winLabel.setText("Game in progress...");
+                    winLabel.setBackground(Color.YELLOW);
+                    winLabel.setForeground(Color.BLACK);
+                    generateUI(10, panel, gridPanel, frame, winLabel, stepsLabel);  
 
                 }
             }
@@ -108,11 +114,14 @@ public class SudokuUI extends Sudoku implements EventListener
         mediumButton.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
-                {
-                    System.out.println("Medium");
-                    gridPanel.setVisible(false);
+                {  
+                	System.out.println("Medium");
+                	gridPanel.removeAll();
                     winningPanel.setVisible(true);
-                    generateUI(30, panel, frame, winLabel, stepsLabel);   
+                    winLabel.setText("Game in progress...");
+                    winLabel.setBackground(Color.YELLOW);
+                    winLabel.setForeground(Color.BLACK);
+                    generateUI(30, panel, gridPanel, frame, winLabel, stepsLabel);   
                     
                 }
             }
@@ -121,11 +130,14 @@ public class SudokuUI extends Sudoku implements EventListener
         hardButton.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
-                {
+                {  
                     System.out.println("Hard");
-                    gridPanel.setVisible(false);
+                    gridPanel.removeAll();
                     winningPanel.setVisible(true);
-                    generateUI(54, panel, frame, winLabel, stepsLabel);       
+                    winLabel.setText("Game in progress...");
+                    winLabel.setBackground(Color.YELLOW);
+                    winLabel.setForeground(Color.BLACK);
+                    generateUI(54, panel, gridPanel, frame, winLabel, stepsLabel);       
 
                 }
             }
@@ -135,8 +147,9 @@ public class SudokuUI extends Sudoku implements EventListener
             public void actionPerformed(ActionEvent e)
             {
                 System.out.println("Solve");
-                gridPanel.setVisible(false);
-                solveBoard(panel, frame, winLabel, stepsLabel);       
+                gridPanel.removeAll();
+                winningPanel.setVisible(true);
+                solveBoard(panel, gridPanel, frame, winLabel, stepsLabel);       
 
             }
         }
@@ -173,15 +186,17 @@ public class SudokuUI extends Sudoku implements EventListener
     }
 
 
-    public static void generateUI(int diffculty, JPanel panel, JFrame frame, JLabel winLabel, JLabel stepsLabel)
+    public static void generateUI(int diffculty, JPanel panel, JPanel gridPanel, JFrame frame, JLabel winLabel, JLabel stepsLabel)
     {
     	
+    	
+    
     	steps = 0;
     	stepsLabel.setText("Steps: " + Integer.toString(steps));
         UIBoardClear();
     	Sudoku userBoard = new Sudoku();
         Sudoku sourceBoard = new Sudoku();
-        JPanel gridPanel = new JPanel(new GridLayout(9, 9));
+   
 
         sourceBoard.initializeBoard();
         sourceBoard.generateBoard(0);
@@ -270,7 +285,9 @@ public class SudokuUI extends Sudoku implements EventListener
                                 winLabel.setText("Wrong Input!");
                                 winLabel.setBackground(Color.RED);
                                 winLabel.setForeground(Color.WHITE);
+                               
 
+                                
                                 //TODO Highlight the row and column
                                 //TODO highlight the other numbers that are the same
                                 System.out.println("WRONG INPUT");
@@ -320,20 +337,21 @@ public class SudokuUI extends Sudoku implements EventListener
             }
         }
 
+        
         panel.add(gridPanel, BorderLayout.CENTER);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);
         frame.setVisible(true);
 
-
+   
     }
+    
+   
 
-    public static void solveBoard(JPanel panel, JFrame frame, JLabel winLabel, JLabel stepsLabel)
+    public static void solveBoard(JPanel panel, JPanel gridPanel, JFrame frame, JLabel winLabel, JLabel stepsLabel)
     {
     
-        JPanel gridPanel = new JPanel(new GridLayout(9, 9));
-
         gridPanel.setBackground(Color.BLUE);
         
         
@@ -353,6 +371,7 @@ public class SudokuUI extends Sudoku implements EventListener
                     JTextField textField = new CellNode(row, col);
                     textField.setBackground(Color.LIGHT_GRAY);
                     textField.setForeground(Color.BLACK);
+                    textField.setEditable(false);
                     int top = 0, left = 0, bottom = 0, right = 0;
                     if (row % 3 == 0) {
                         top = 3;
@@ -403,9 +422,8 @@ public class SudokuUI extends Sudoku implements EventListener
                                 System.out.println("WRONG INPUT");
 
                             }
-
-              
                         }
+                        
                     });
                         
                     textField.setHorizontalAlignment(JTextField.CENTER);
