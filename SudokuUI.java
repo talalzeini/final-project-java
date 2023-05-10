@@ -335,6 +335,10 @@ public class SudokuUI extends Sudoku implements EventListener
                 
 
             }
+
+           updateBoard();
+
+
         }
 
         
@@ -482,6 +486,26 @@ public class SudokuUI extends Sudoku implements EventListener
             for(int col = 0; col < 9; col++)
             {
                 UIBoard[row][col] = null;
+            }
+        }
+    }
+
+    public static void updateBoard() 
+    {
+        for (int row = 0; row < GRID_SIZE; row++) 
+        {
+          for (int col = 0; col < GRID_SIZE; col++) 
+            {
+                try {
+                    if(UIBoard[row][col].getValue() == 0)
+                    {
+                        UIBoard[row][col].setValue("");
+                    }
+                } catch (NullPointerException e) {
+                    // TODO: handle exception
+                }
+               
+               
             }
         }
     }
