@@ -76,6 +76,7 @@ public class Sudoku
 
     }
 
+    
     public void removeNumbers(int cellsToRemove)
     {
         while (cellsToRemove > 0)
@@ -189,10 +190,17 @@ return true;
     }
 
 
-    // Generate the rest of the board using backtracking method
-    // Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
-    // The integer named 'currentCell' should start with a 0 value
-    public  boolean generateBoard(int currentCell)
+    /*
+     * Generate the rest of the board using backtracking method recursive
+     * Takes an integer as parameter, one that keeps track of the current cell that we want to fill with a number
+     * The integer named 'currentCell' should start with a 0 value
+     * 
+     * @param currentCell keep track of the currentCell to be added into the board
+     * 
+     * @return if the game board is valid at the current stage (partial or complete)
+     */
+    
+    public boolean generateBoard(int currentCell)
     {
         int row = currentCell / 9; // row index of the current cell that we want to fill with a number
         int column = currentCell % 9; // column index of the current cell that we want to fill with a number
@@ -234,7 +242,15 @@ return true;
     }
 
 
-    public  boolean isValid(int input, int row, int col)
+    /*
+     * Helper Function: Calls and invokes three methods checkGrid, checkCol, and checkRow.
+     * 
+     * @param  input input the value of to be checked (entered by user)
+     * @param col the col 1-9 at which it the value was entered
+     * @param row the row 1-9 at which it the value was entered
+     * @return if the user inputted value is valid return yes
+     */
+    public boolean isValid(int input, int row, int col)
     {
         if(checkGrid(input, row, col) && checkCol(input, row) && checkRow(input, col))
         {
@@ -243,6 +259,13 @@ return true;
         return false;
     }
 
+     /*
+     * Check if the gameBoard has the same value present anywhere else in the row 
+     * 
+     * @param input input the value of to be checked (entered by user)
+     * @param col the col 1-9 at which it the value was entered
+     * @return if the user inputted value is valid return yes
+     */
     public  boolean checkRow(int input, int col)
     {
         for(int row = 0; row < GRID_SIZE; row++)
@@ -255,7 +278,14 @@ return true;
         return true;
     }
 
-    public  boolean checkCol(int input, int row)
+    /*
+     * Check if the gameBoard has the same value present anywhere else in the column 
+     * 
+     * @param input input the value of to be checked (entered by user)
+     * @param row the row 1-9 at which it the value was entered
+     * @return if the user inputted value is valid return yes
+     */
+    public boolean checkCol(int input, int row)
     {
         for(int col = 0; col < GRID_SIZE; col++)
         {
@@ -267,9 +297,15 @@ return true;
         return true;
     }
 
-    // Find the starting Position of the top left corner of each sub grid
-    // Figure out how to do that
-    public  boolean checkGrid(int input, int row, int col)
+    /*
+     * Find the starting Position of the top left corner of each sub grid
+     * 
+     * @param input the value of to be checked
+     * @param row the row 1-9 at which it the value is entered
+     * @param col the col 1-9 at which it the value is entered
+     * @return if the user inputted value is valid return yes
+     */
+    public boolean checkGrid(int input, int row, int col)
     {
         int startingRow = row - row % 3; // ex. r = 1
         int startingColumn = col - col % 3; // ex. c = 1
@@ -288,6 +324,12 @@ return true;
         return true;
     }
 
+    /*
+     * Basic Method that copies one 2d array into the other.
+     * 
+     * @param tempBoard (source board)
+     * @param gameBoard (destination board)
+     */
     public static void copy2DArray(int[][] tempBoard, int[][] gameBoard)
     {
         // Copy the contents of the first array into the second array
