@@ -10,6 +10,15 @@ public class Sudoku
     private int[][] board = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the finished board
 
 
+    public Sudoku(int[][] inputBoard)
+    {
+        this.board = inputBoard;
+    }
+    public Sudoku()
+    {
+        this.board = new int[9][9];
+    }
+    
     /*
      * Setter
      * @param board board to be set to instance variable
@@ -110,6 +119,7 @@ public class Sudoku
      * @param cellsToRemove the number of cells to be removed from 81
      * 
      */
+    //userBoard is the board instance here
     public void removeNumbers(int cellsToRemove)
     {
         while (cellsToRemove > 0)
@@ -130,7 +140,7 @@ public class Sudoku
             }
 
 
-            if(oneSolution(cellNumber) == false)
+            if(oneSolution(cellNumber, board) == false)
             {
                 System.out.println("How many times this occur?");
                 board[row][column] = removedCell; // Put back wrong RNG choice
@@ -140,33 +150,33 @@ public class Sudoku
         }
     }
 
-    public boolean oneSolution(int cellNumber)
+    public boolean oneSolution(int cellNumber, int[][] userBoardPassIN)
     {
         /* 
-        Sudoku tempBoard = new Sudoku();
-        //int[][] tempBoard;
+        Sudoku tempBoardStore = new Sudoku(board);
+       
+        Sudoku tempBoardProcess = tempBoardStore;
 
-        tempBoard.setBoard(board);
-
-        //copy2DArray(userBoard.getBoard(), tempBoard);
-
-        tempBoard.generateBoard(0);
+        tempBoardProcess.generateBoard(0);
 
 
-        if(Arrays.equals(tempBoard.getBoard(), getBoard()))
+        if(Arrays.equals(tempBoardProcess.getBoard(), getBoard()))
         {
-            copy2DArray(tempBoard.getBoard(), getBoard());
+            copyBoard(tempBoardStore);
+            //copy2DArray(tempBoard.getBoard(), getBoard());
             
             return true;
         }
         else
         {
-            copy2DArray(tempBoard.getBoard(), getBoard());
+           copyBoard(tempBoardStore);
+           // copy2DArray(tempBoard.getBoard(), getBoard());
             System.out.println("How many times are they not identical this occur?");
             return false;
         }
-*/
-return true;
+
+        */
+        return true;
     }
 
 
