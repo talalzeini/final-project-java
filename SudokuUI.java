@@ -479,6 +479,7 @@ public class SudokuUI extends Sudoku implements EventListener
 
     }
 
+    //
     public static void UIBoardClear()
     {
         for(int row = 0; row < 9; row++)
