@@ -10,21 +10,45 @@ public class Sudoku
     private int[][] board = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the finished board
 
 
+    /*
+     * Setter
+     * @param board board to be set to instance variable
+     * 
+     */
     public void setBoard(int[][] board)
     {
         this.board = board;
     }
 
+    /*
+     * Getter/Setter
+     * @param board get board and set it to the  instance variable
+     * 
+     */
     public void copyBoard(Sudoku board)
     {
         this.board = board.getBoard();
     }
-
+    /*
+     * Getter
+     * @param board board to be get from the instance variable
+     * 
+     * @return 2D int array of board
+     * 
+     */
     public int[][] getBoard()
     {
         return board;
     }
 
+    /*
+     * Getter
+     * @param row the row which to find the value
+     * @param col the row which to find the value
+     * 
+     * @return  int of location in the board either 0 or [1-9]
+     * 
+     */
     public int getValue(int row, int col)
     {
         return board[row][col];
@@ -51,7 +75,11 @@ public class Sudoku
 
     }
 
-    // Initializes the board with all cells set to zero
+  
+    /*
+     *  Initializes the board with all cells set to zero, and generates the first row randomly from a list to improve efficency
+     * 
+     */
     public void initializeBoard()
     {
         // Fill the board with zeros
@@ -76,7 +104,12 @@ public class Sudoku
 
     }
 
-    
+    /*
+     * Take a complete sudoku board and remove a certain number of cells from it based on diffculty
+     * 
+     * @param cellsToRemove the number of cells to be removed from 81
+     * 
+     */
     public void removeNumbers(int cellsToRemove)
     {
         while (cellsToRemove > 0)
