@@ -366,8 +366,24 @@ public class SudokuUI extends Sudoku implements EventListener
                 
         
                     JLabel numberLabel = new JLabel(Integer.toString(value));
-                    numberLabel.setOpaque(true); // make the label opaque
-                    numberLabel.setBackground(Color.WHITE);
+                    
+                    try {
+                        if(UIBoard[row][col].getValue() == 0)
+                        {
+                            numberLabel.setOpaque(true); // make the label opaque
+                            numberLabel.setBackground(Color.PINK);
+                        }
+                        else{
+                            numberLabel.setOpaque(true); // make the label opaque
+                            numberLabel.setBackground(Color.WHITE);
+                        }
+                        
+                    } catch (NullPointerException e) 
+                    {
+                        // do nothing skip
+                    }
+                   
+                    
                     int top = 0, left = 0, bottom = 0, right = 0;
 		                    if (row % 3 == 0) {
 		                        top = 3;
