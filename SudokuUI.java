@@ -17,11 +17,7 @@ public class SudokuUI extends Sudoku implements EventListener
         JPanel gridPanel = new JPanel(new GridLayout(9, 9));
         JPanel buttonPanel = new JPanel(new FlowLayout());
         JPanel winningPanel = new JPanel(new FlowLayout());
-        
-        
-        
-
-        
+ 
         // Buttons
         JButton easyButton = new JButton("Easy");
         JButton mediumButton = new JButton("Medium");
@@ -373,9 +369,19 @@ public class SudokuUI extends Sudoku implements EventListener
                 if(value == 0) 
                 {
                     JTextField textField = new CellNode(row, col);
-                    textField.setBackground(Color.LIGHT_GRAY);
-                    textField.setForeground(Color.BLACK);
-                    textField.setEditable(false);
+                    if(UIBoard[row][col].getValue() == 0)
+                    {
+                        textField.setBackground(Color.RED);
+                        textField.setForeground(Color.RED);
+                        textField.setEditable(false);
+                    }
+                    else
+                    {
+                        textField.setBackground(Color.LIGHT_GRAY);
+                        textField.setForeground(Color.BLACK);
+                        textField.setEditable(false);
+                    }
+                
                     int top = 0, left = 0, bottom = 0, right = 0;
                     if (row % 3 == 0) {
                         top = 3;
