@@ -78,7 +78,7 @@ public class Sudoku
 
         userBoard.copyBoard(sourceBoard);
 
-        userBoard.removeNumbers(63); // 81 - 21 = 60 (considered hard)
+        userBoard.removeNumbers(63, userBoard); // 81 - 21 = 60 (considered hard)
 
         System.out.println("\nUnsolved Board");
         userBoard.printBoard();
@@ -121,7 +121,7 @@ public class Sudoku
      * 
      */
     //userBoard is the board instance here
-    public void removeNumbers(int cellsToRemove)
+    public void removeNumbers(int cellsToRemove, Sudoku userBoard)
     {
         while (cellsToRemove > 0)
         {
@@ -140,9 +140,7 @@ public class Sudoku
 
             }
 
-            Sudoku passInBoard = new Sudoku(board);
-
-            if(oneSolution(cellNumber, passInBoard) == false)
+            if(oneSolution(cellNumber, userBoard) == false)
             {
                 System.out.println("How many times this occur?");
                 board[row][column] = removedCell; // Put back wrong RNG choice
@@ -152,11 +150,11 @@ public class Sudoku
         }
     }
 
-    public boolean oneSolution(int cellNumber, Sudoku passinSodukuBoard)
+    public boolean oneSolution(int cellNumber, Sudoku userBoard)
     {
-    /* 
-        Sudoku tempBoardStore =  new Sudoku(passinSodukuBoard.getBoard());
-        Sudoku tempBoardProcess = new Sudoku(passinSodukuBoard.getBoard());
+     
+        Sudoku tempBoardStore =  new Sudoku(userBoard.getBoard());
+        Sudoku tempBoardProcess = new Sudoku(userBoard.getBoard());
         tempBoardProcess.generateBoard(0);
    
         
@@ -172,9 +170,7 @@ public class Sudoku
             System.out.println("How many times are they not identical this occur?");
             return false;
         }
-*/
-return true;
-    
+
     }
 
 

@@ -185,8 +185,6 @@ public class SudokuUI extends Sudoku implements EventListener
     public static void generateUI(int diffculty, JPanel panel, JPanel gridPanel, JFrame frame, JLabel winLabel, JLabel stepsLabel)
     {
     	
-    	
-    
     	steps = 0;
     	stepsLabel.setText("Steps: " + Integer.toString(steps));
         UIBoardClear();
@@ -209,10 +207,6 @@ public class SudokuUI extends Sudoku implements EventListener
         
         
         gridPanel.setBackground(Color.BLUE);
-        
-        
-        
-
 
         int[][] userBoard2 = userBoard.getBoard();
 
@@ -286,7 +280,6 @@ public class SudokuUI extends Sudoku implements EventListener
                                 
                                 //TODO Highlight the row and column
                                 //TODO highlight the other numbers that are the same
-                                System.out.println("WRONG INPUT");
 
                             }
 
@@ -373,7 +366,8 @@ public class SudokuUI extends Sudoku implements EventListener
                             numberLabel.setOpaque(true); // make the label opaque
                             numberLabel.setBackground(Color.PINK);
                         }
-                        else{
+                        else
+                        {
                             numberLabel.setOpaque(true); // make the label opaque
                             numberLabel.setBackground(Color.WHITE);
                         }
@@ -398,7 +392,6 @@ public class SudokuUI extends Sudoku implements EventListener
 		                        right = 3;
 		                    }
 	                    numberLabel.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.BLACK));
-                        //Cast the obj to CellNode
                         CellNode tempNode = new CellNode(row, col);
                         tempNode.setValue(Integer.toString(value));
                         int tempRow = tempNode.getRow();
@@ -423,7 +416,7 @@ public class SudokuUI extends Sudoku implements EventListener
     
     }
 
-    //
+    
     public static void UIBoardClear()
     {
         for(int row = 0; row < 9; row++)
