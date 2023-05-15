@@ -364,85 +364,7 @@ public class SudokuUI extends Sudoku implements EventListener
             {
                 int value = userBoard2[row][col];
                 
-                            
-                // if cell == 0, create a textfield
-                if(value == 0) 
-                {
-                    JTextField textField = new CellNode(row, col);
-                    if(UIBoard[row][col].getValue() == 0)
-                    {
-                        textField.setBackground(Color.RED);
-                        textField.setForeground(Color.RED);
-                        textField.setEditable(false);
-                    }
-                    else
-                    {
-                        textField.setBackground(Color.LIGHT_GRAY);
-                        textField.setForeground(Color.BLACK);
-                        textField.setEditable(false);
-                    }
-                
-                    int top = 0, left = 0, bottom = 0, right = 0;
-                    if (row % 3 == 0) {
-                        top = 3;
-                    }
-                    if (col % 3 == 0) {
-                        left = 3;
-                    }
-                    if (row == 8) {
-                        bottom = 3;
-                    }
-                    if (col == 8) {
-                        right = 3;
-                    }
-                    textField.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.BLACK));
-      
-                    textField.addActionListener(new ActionListener() 
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            //Cast the obj to CellNode
-                            CellNode tempNode = (CellNode)e.getSource();
-                            try {
-                                tempNode.setValue(textField.getText());
-                            } 
-                            catch (NumberFormatException ee) 
-                            {
-                                tempNode.setValue("0");
-                                
-                            }
-                          
-                            
-                            int tempRow = tempNode.getRow();
-                            int tempCol = tempNode.getCol();
-
-                            if(tempNode.getValue() == sourceBoard2D[tempRow][tempCol])
-                            {
-                                UIBoard[tempRow][tempCol] = tempNode;
-
-                            }
-                            else
-                            {    
-                            	stepsLabel.setText("Steps: " + Integer.toString(steps));
-                            	steps += 1;
-                                textField.setText("");
-                                winLabel.setText("Wrong Input!");
-                                //TODO Highlight the row and column
-                                //TODO highlight the other numbers that are the same
-                                System.out.println("WRONG INPUT");
-
-                            }
-                        }
-                        
-                    });
-                        
-                    textField.setHorizontalAlignment(JTextField.CENTER);
-
-                    gridPanel.add(textField);
-                }
-                else 
-                {
-
+        
                     JLabel numberLabel = new JLabel(Integer.toString(value));
                     numberLabel.setOpaque(true); // make the label opaque
                     numberLabel.setBackground(Color.WHITE);
@@ -470,8 +392,8 @@ public class SudokuUI extends Sudoku implements EventListener
 
                     numberLabel.setHorizontalAlignment(JTextField.CENTER);
                     gridPanel.add(numberLabel);
-                }
                 
+            
 
             }
         }
@@ -482,7 +404,7 @@ public class SudokuUI extends Sudoku implements EventListener
         frame.setSize(600, 600);
         frame.setVisible(true);
 
-
+    
     }
 
     //
