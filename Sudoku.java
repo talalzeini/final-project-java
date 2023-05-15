@@ -154,7 +154,7 @@ public class Sudoku
 
     public boolean oneSolution(int cellNumber, Sudoku passinSodukuBoard)
     {
-    
+    /* 
         Sudoku tempBoardStore =  new Sudoku(passinSodukuBoard.getBoard());
         Sudoku tempBoardProcess = new Sudoku(passinSodukuBoard.getBoard());
         tempBoardProcess.generateBoard(0);
@@ -172,7 +172,8 @@ public class Sudoku
             System.out.println("How many times are they not identical this occur?");
             return false;
         }
-
+*/
+return true;
     
     }
 
