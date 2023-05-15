@@ -502,8 +502,9 @@ public class SudokuUI extends Sudoku implements EventListener
                     {
                         UIBoard[row][col].setValue("");
                     }
-                } catch (NullPointerException e) {
-                    // TODO: handle exception
+                } catch (NullPointerException e) 
+                {
+                    //do nothing continue to next iteration
                 }
                
                

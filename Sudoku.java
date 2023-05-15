@@ -10,6 +10,7 @@ public class Sudoku
     private int[][] board = new int[GRID_SIZE][GRID_SIZE]; // 2D array representing the finished board
 
 
+
     public Sudoku(int[][] inputBoard)
     {
         this.board = inputBoard;
@@ -139,8 +140,9 @@ public class Sudoku
 
             }
 
+            Sudoku passInBoard = new Sudoku(board);
 
-            if(oneSolution(cellNumber, board) == false)
+            if(oneSolution(cellNumber, passInBoard) == false)
             {
                 System.out.println("How many times this occur?");
                 board[row][column] = removedCell; // Put back wrong RNG choice
@@ -150,33 +152,28 @@ public class Sudoku
         }
     }
 
-    public boolean oneSolution(int cellNumber, int[][] userBoardPassIN)
+    public boolean oneSolution(int cellNumber, Sudoku passinSodukuBoard)
     {
-        /* 
-        Sudoku tempBoardStore = new Sudoku(board);
-       
-        Sudoku tempBoardProcess = tempBoardStore;
-
+    
+        Sudoku tempBoardStore =  new Sudoku(passinSodukuBoard.getBoard());
+        Sudoku tempBoardProcess = new Sudoku(passinSodukuBoard.getBoard());
         tempBoardProcess.generateBoard(0);
-
-
+   
+        
         if(Arrays.equals(tempBoardProcess.getBoard(), getBoard()))
         {
-            copyBoard(tempBoardStore);
-            //copy2DArray(tempBoard.getBoard(), getBoard());
+            copy2DArray(tempBoardStore.getBoard(), board);
             
             return true;
         }
         else
         {
-           copyBoard(tempBoardStore);
-           // copy2DArray(tempBoard.getBoard(), getBoard());
+            copy2DArray(tempBoardStore.getBoard(), board);
             System.out.println("How many times are they not identical this occur?");
             return false;
         }
 
-        */
-        return true;
+    
     }
 
 
@@ -373,12 +370,12 @@ public class Sudoku
      * @param tempBoard (source board)
      * @param gameBoard (destination board)
      */
-    public static void copy2DArray(int[][] tempBoard, int[][] gameBoard)
+    public static void copy2DArray(int[][] tempBoard, int[][] board)
     {
         // Copy the contents of the first array into the second array
         for (int i = 0; i < tempBoard.length; i++) {
             for (int j = 0; j < tempBoard[0].length; j++) {
-                gameBoard[i][j] = tempBoard[i][j];
+                board[i][j] = tempBoard[i][j];
             }
         }
     }
