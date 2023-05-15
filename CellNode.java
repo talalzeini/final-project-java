@@ -1,5 +1,4 @@
 import javax.swing.JTextField;
-import java.util.EventListener;
 
 public class CellNode extends JTextField
 {
