@@ -78,7 +78,7 @@ public class Sudoku
 
         userBoard.copyBoard(sourceBoard);
 
-        userBoard.removeNumbers(63, userBoard, sourceBoard); // 81 - 21 = 60 (considered hard)
+        userBoard.removeNumbers(63); // 81 - 21 = 60 (considered hard)
 
         System.out.println("\nUnsolved Board");
         userBoard.printBoard();
@@ -121,7 +121,7 @@ public class Sudoku
      * 
      */
     //userBoard is the board instance here
-    public void removeNumbers(int cellsToRemove, Sudoku userBoard, Sudoku sourceBoard)
+    public void removeNumbers(int cellsToRemove)
     {
         while (cellsToRemove > 0)
         {
@@ -326,5 +326,21 @@ public class Sudoku
         return true;
     }
 
+
+     /*
+     * Basic Method that copies one 2d array into the other.
+     * 
+     * @param tempBoard (source board)
+     * @param gameBoard (destination board)
+     */
+    public static void copy2DArray(int[][] tempBoard, int[][] gameBoard)
+    {
+        // Copy the contents of the first array into the second array
+        for (int i = 0; i < tempBoard.length; i++) {
+            for (int j = 0; j < tempBoard[0].length; j++) {
+                gameBoard[i][j] = tempBoard[i][j];
+            }
+        }
+    }
 }
 
