@@ -139,7 +139,6 @@ public class SudokuUI extends Sudoku implements EventListener
         {
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("Solve");
                 gridPanel.removeAll();
                 winningPanel.setVisible(true);
                 solveBoard(panel, gridPanel, frame, winLabel, stepsLabel);       
@@ -172,7 +171,6 @@ public class SudokuUI extends Sudoku implements EventListener
                 newSum = 0;
             }
         }
-        System.out.println("You win!");
         winLabel.setBackground(Color.GREEN);
         winLabel.setForeground(Color.BLACK);
         winLabel.setText("You win!");
