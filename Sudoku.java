@@ -78,7 +78,7 @@ public class Sudoku
 
         userBoard.copyBoard(sourceBoard);
 
-        userBoard.removeNumbers(63, userBoard); // 81 - 21 = 60 (considered hard)
+        userBoard.removeNumbers(63, userBoard, sourceBoard); // 81 - 21 = 60 (considered hard)
 
         System.out.println("\nUnsolved Board");
         userBoard.printBoard();
@@ -121,7 +121,7 @@ public class Sudoku
      * 
      */
     //userBoard is the board instance here
-    public void removeNumbers(int cellsToRemove, Sudoku userBoard)
+    public void removeNumbers(int cellsToRemove, Sudoku userBoard, Sudoku sourceBoard)
     {
         while (cellsToRemove > 0)
         {
@@ -140,7 +140,7 @@ public class Sudoku
 
             }
 
-            if(oneSolution(cellNumber, userBoard) == false)
+            if(oneSolution(cellNumber, userBoard, sourceBoard) == false)
             {
                 System.out.println("How many times this occur?");
                 board[row][column] = removedCell; // Put back wrong RNG choice
@@ -150,23 +150,23 @@ public class Sudoku
         }
     }
 
-    public boolean oneSolution(int cellNumber, Sudoku userBoard)
+    public boolean oneSolution(int cellNumber, Sudoku userBoard, Sudoku sourceBoard)
     {
      
-        Sudoku tempBoardStore =  new Sudoku(userBoard.getBoard());
+        Sudoku tempBoardStore = new Sudoku(userBoard.getBoard());
         Sudoku tempBoardProcess = new Sudoku(userBoard.getBoard());
         tempBoardProcess.generateBoard(0);
    
         
-        if(Arrays.equals(tempBoardProcess.getBoard(), getBoard()))
+        if(Arrays.equals(tempBoardProcess.getBoard(), sourceBoard.getBoard()))
         {
-            copy2DArray(tempBoardStore.getBoard(), board);
+            userBoard.setBoard(tempBoardStore.getBoard());
             
             return true;
         }
         else
         {
-            copy2DArray(tempBoardStore.getBoard(), board);
+            userBoard.setBoard(tempBoardStore.getBoard());
             System.out.println("How many times are they not identical this occur?");
             return false;
         }
