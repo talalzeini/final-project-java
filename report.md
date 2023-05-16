@@ -2,9 +2,6 @@ Sudoku
 
 Our goal was to design and create a working sudoku game.
 
-
-To generate our sudoku game, we took the advantage of that each valid sudoku board only has one unique solution. Sort of like how a well written multiple choice exam given by a professor to their students, Canvas or a scantron machine compares the users inputted result based on what the answer key has developed for that instance of the sudoku game. 
-
 Using our own understanding of how a backtracking algorithm for Sudoku board creation is done on the internet, we implemented a simple recursive algorithm which when resulted in breaking the 3 fundamental rules of Sudoku to go back until where the generated Sudoku board is last valid. 
 
 Supporting methods that support the generation of the Sudoku board, contain of the basic 3 rules of Sudoku, each row should have numbers 1-9, no repeats, each column should have numbers 1-9, no repeats, each 3x3 quadrant should have numbers 1-9, no repeats. 

@@ -78,7 +78,7 @@ public class Sudoku
 
         userBoard.copyBoard(sourceBoard);
 
-        userBoard.removeNumbers(63, userBoard, sourceBoard); // 81 - 21 = 60 (considered hard)
+        userBoard.removeNumbers(63); // 81 - 21 = 60 (considered hard)
 
         System.out.println("\nUnsolved Board");
         userBoard.printBoard();
@@ -113,65 +113,30 @@ public class Sudoku
         }
 
     }
-
-    /*
+     /*
      * Take a complete sudoku board and remove a certain number of cells from it based on diffculty
      * 
      * @param cellsToRemove the number of cells to be removed from 81
      * 
      */
     //userBoard is the board instance here
-    public void removeNumbers(int cellsToRemove, Sudoku userBoard, Sudoku sourceBoard)
+    public void removeNumbers(int cellsToRemove)
     {
         while (cellsToRemove > 0)
         {
             // Randomly pick a row and column index
             int row = (int)(Math.random() * GRID_SIZE);
             int column = (int)(Math.random() * GRID_SIZE);
-            int cellNumber = (row - 1) * 9 + (column-1);
-
-
-            int removedCell = 0;
+           
             if(board[row][column] != 0) //if cell is not empty
             {
-                removedCell = board[row][column];
+
                 board[row][column] = 0;
                 cellsToRemove--; // Keep track of how many cells are being removed
 
             }
 
-            if(oneSolution(cellNumber, userBoard, sourceBoard) == false)
-            {
-                System.out.println("How many times this occur?");
-                board[row][column] = removedCell; // Put back wrong RNG choice
-                cellsToRemove++;
-            }
-
         }
-    }
-
-    public boolean oneSolution(int cellNumber, Sudoku userBoard, Sudoku sourceBoard)
-    {
-    /* 
-        Sudoku tempBoardStore = new Sudoku(userBoard.getBoard());
-        Sudoku tempBoardProcess = new Sudoku(userBoard.getBoard());
-        tempBoardProcess.generateBoard(0);
-   
-        
-        if(Arrays.equals(tempBoardProcess.getBoard(), sourceBoard.getBoard()))
-        {
-            userBoard.setBoard(tempBoardStore.getBoard());
-            
-            return true;
-        }
-        else
-        {
-            userBoard.setBoard(tempBoardStore.getBoard());
-            System.out.println("How many times are they not identical this occur?");
-            return false;
-        }
-*/
-return true;
     }
 
     // Print the board, will be replaced by GUI

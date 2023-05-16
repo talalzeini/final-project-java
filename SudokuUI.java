@@ -196,7 +196,7 @@ public class SudokuUI extends Sudoku implements EventListener
 
         userBoard.copyBoard(sourceBoard);
 
-        userBoard.removeNumbers(diffculty, userBoard, sourceBoard);
+        userBoard.removeNumbers(diffculty);
         
         
         gridPanel.setBackground(Color.BLUE);
