@@ -95,7 +95,6 @@ public class SudokuUI extends Sudoku implements EventListener
             {
                 public void actionPerformed(ActionEvent e)
                 {  
-                    System.out.println("Easy");
                     gridPanel.removeAll();
                     winningPanel.setVisible(true);
                     winLabel.setText("Game in progress...");
@@ -111,7 +110,6 @@ public class SudokuUI extends Sudoku implements EventListener
             {
                 public void actionPerformed(ActionEvent e)
                 {  
-                	System.out.println("Medium");
                 	gridPanel.removeAll();
                     winningPanel.setVisible(true);
                     winLabel.setText("Game in progress...");
@@ -127,7 +125,6 @@ public class SudokuUI extends Sudoku implements EventListener
             {
                 public void actionPerformed(ActionEvent e)
                 {  
-                    System.out.println("Hard");
                     gridPanel.removeAll();
                     winningPanel.setVisible(true);
                     winLabel.setText("Game in progress...");
