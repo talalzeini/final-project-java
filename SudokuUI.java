@@ -195,9 +195,6 @@ public class SudokuUI extends Sudoku implements EventListener
         sourceBoard.initializeBoard();
         sourceBoard.generateBoard(0);
 
-        System.out.println("\nSolved Board");
-        sourceBoard.printBoard();
-
         copy2DArray(sourceBoard.getBoard(), sourceBoard2D);
       
 
