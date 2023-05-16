@@ -326,20 +326,5 @@ public class Sudoku
         return true;
     }
 
-    /*
-     * Basic Method that copies one 2d array into the other.
-     * 
-     * @param tempBoard (source board)
-     * @param gameBoard (destination board)
-     */
-    public static void copy2DArray(int[][] tempBoard, int[][] board)
-    {
-        // Copy the contents of the first array into the second array
-        for (int i = 0; i < tempBoard.length; i++) {
-            for (int j = 0; j < tempBoard[0].length; j++) {
-                board[i][j] = tempBoard[i][j];
-            }
-        }
-    }
 }
 
