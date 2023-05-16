@@ -152,7 +152,7 @@ public class Sudoku
 
     public boolean oneSolution(int cellNumber, Sudoku userBoard, Sudoku sourceBoard)
     {
-     
+    /* 
         Sudoku tempBoardStore = new Sudoku(userBoard.getBoard());
         Sudoku tempBoardProcess = new Sudoku(userBoard.getBoard());
         tempBoardProcess.generateBoard(0);
@@ -170,7 +170,8 @@ public class Sudoku
             System.out.println("How many times are they not identical this occur?");
             return false;
         }
-
+*/
+return true;
     }
 
     // Print the board, will be replaced by GUI

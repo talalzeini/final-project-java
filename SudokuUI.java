@@ -6,15 +6,15 @@ import javax.swing.*;
 
 public class SudokuUI extends Sudoku implements EventListener 
 {
-    private static CellNode[][] UIBoard = new CellNode[9][9];
-    private static int[][] sourceBoard2D = new int[9][9]; 
+    private static CellNode[][] UIBoard = new CellNode[GRID_SIZE][GRID_SIZE];
+    private static int[][] sourceBoard2D = new int[GRID_SIZE][GRID_SIZE]; 
     static int steps = 1;
     
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Sudoku Grid");
         JPanel panel = new JPanel(new BorderLayout());
-        JPanel gridPanel = new JPanel(new GridLayout(9, 9));
+        JPanel gridPanel = new JPanel(new GridLayout(GRID_SIZE, GRID_SIZE));
         JPanel buttonPanel = new JPanel(new FlowLayout());
         JPanel winningPanel = new JPanel(new FlowLayout());
  
@@ -141,7 +141,8 @@ public class SudokuUI extends Sudoku implements EventListener
             {
                 gridPanel.removeAll();
                 winningPanel.setVisible(true);
-                solveBoard(panel, gridPanel, frame, winLabel, stepsLabel);       
+                solveBoard(panel, gridPanel, frame, winLabel, stepsLabel);    
+                
 
             }
         }
@@ -150,8 +151,8 @@ public class SudokuUI extends Sudoku implements EventListener
 
         int newSum = 0;
         while(newSum != 405) {
-            for(int row = 0; row < 9; row++) {
-                for(int col = 0; col < 9; col++) {
+            for(int row = 0; row < GRID_SIZE; row++) {
+                for(int col = 0; col < GRID_SIZE; col++) {
                     CellNode temp = UIBoard[row][col];
                     try 
                     {
@@ -340,7 +341,7 @@ public class SudokuUI extends Sudoku implements EventListener
         gridPanel.setBackground(Color.BLUE);
         
         
-        int[][] userBoard2 = new int[9][9];
+        int[][] userBoard2 = new int[GRID_SIZE][GRID_SIZE];
         copy2DArray(sourceBoard2D, userBoard2);
 
         for (int row = 0; row < GRID_SIZE; row++) 
@@ -411,9 +412,9 @@ public class SudokuUI extends Sudoku implements EventListener
     
     public static void UIBoardClear()
     {
-        for(int row = 0; row < 9; row++)
+        for(int row = 0; row < GRID_SIZE; row++)
         {
-            for(int col = 0; col < 9; col++)
+            for(int col = 0; col < GRID_SIZE; col++)
             {
                 UIBoard[row][col] = null;
             }
