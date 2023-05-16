@@ -128,52 +128,17 @@ public class Sudoku
             // Randomly pick a row and column index
             int row = (int)(Math.random() * GRID_SIZE);
             int column = (int)(Math.random() * GRID_SIZE);
-            int cellNumber = (row - 1) * 9 + (column-1);
-
-
-            int removedCell = 0;
+           
             if(board[row][column] != 0) //if cell is not empty
             {
-                removedCell = board[row][column];
+
                 board[row][column] = 0;
                 cellsToRemove--; // Keep track of how many cells are being removed
 
             }
 
-            if(oneSolution(cellNumber, userBoard, sourceBoard) == false)
-            {
-                System.out.println("How many times this occur?");
-                board[row][column] = removedCell; // Put back wrong RNG choice
-                cellsToRemove++;
-            }
-
         }
     }
-
-    public boolean oneSolution(int cellNumber, Sudoku userBoard, Sudoku sourceBoard)
-    {
-     
-        Sudoku tempBoardStore = new Sudoku(userBoard.getBoard());
-        Sudoku tempBoardProcess = new Sudoku(userBoard.getBoard());
-        tempBoardProcess.generateBoard(0);
-   
-        
-        if(Arrays.equals(tempBoardProcess.getBoard(), sourceBoard.getBoard()))
-        {
-            userBoard.setBoard(tempBoardStore.getBoard());
-            
-            return true;
-        }
-        else
-        {
-            userBoard.setBoard(tempBoardStore.getBoard());
-            System.out.println("How many times are they not identical this occur?");
-            return false;
-        }
-
-    }
-
-
 
     // Print the board, will be replaced by GUI
     public int[] printBoard() {
